@@ -25,7 +25,7 @@ namespace GUI
         private void btnSignIn_Click(object sender, EventArgs e)
         {
             user.email = txbEmail.Text;
-            user.password = txbEmail.Text;
+            user.password = txbPassword.Text;
 
             string getUser = userBLL.checkLogin(user);
             switch (getUser)
@@ -46,6 +46,13 @@ namespace GUI
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            SignUp signUp = new SignUp();
+            signUp.Show();
+            this.Hide();
         }
     }
 }

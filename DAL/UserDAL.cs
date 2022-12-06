@@ -14,5 +14,11 @@ namespace DAL
             string info = checkLoginDTO(user);
             return info;
         }
+
+        public MessageHandler checkSignUp(User user)
+        {
+            MessageHandler info = CheckSignUpDTO(user);
+            return info;
+        }
     }
 }
