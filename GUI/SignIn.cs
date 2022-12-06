@@ -46,5 +46,12 @@ namespace GUI
         {
             Application.Exit();
         }
+
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            SignUp signUp = new SignUp();
+            signUp.Show();
+            this.Hide();
+        }
     }
 }
