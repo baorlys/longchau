@@ -96,7 +96,9 @@ namespace DAL
             command3.Parameters.AddWithValue("@email", user.email);
             command3.Parameters.AddWithValue("@name", user.name);
             command3.Parameters.AddWithValue("@phone", user.phone);
-            command3.Parameters.AddWithValue("@password", user.password);
+            MD5Hash md5 = new MD5Hash();
+            string password = md5.GetHash(user.password);
+            command3.Parameters.AddWithValue("@password", password);
             command3.Connection = conn;
             command3.ExecuteNonQuery();
             message.setMessage("Đăng ký thành công");
