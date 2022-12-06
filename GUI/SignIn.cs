@@ -25,10 +25,9 @@ namespace GUI
         private void btnSignIn_Click(object sender, EventArgs e)
         {
             user.email = txbEmail.Text;
-            user.password = txbEmail.Text;
-
-            string getUser = userBLL.checkLogin(user);
-            switch (getUser)
+            user.password = txbPassword.Text;
+            string userInfo = userBLL.checkLogin(user);
+            switch (userInfo)
             {
                 case "required email":
                     MessageBox.Show("Vui lòng nhập email");
@@ -40,7 +39,7 @@ namespace GUI
                     MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
                     return;
             }
-            MessageBox.Show("Thành công");
+            MessageBox.Show(userInfo);
         }
 
         private void btnExit_Click(object sender, EventArgs e)

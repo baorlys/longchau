@@ -11,8 +11,8 @@ namespace DAL
     {
         public String checkLogin(User user)
         {
-            string info = checkLoginDTO(user);
-            return info;
+            string userInfo = checkLoginDTO(user);
+            return userInfo;
         }
     }
 }

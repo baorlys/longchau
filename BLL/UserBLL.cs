@@ -22,8 +22,8 @@ namespace BLL
             {
                 return "required password";
             }
-            string info = userDAL.checkLogin(user);
-            return info;
+            string userInfo = userDAL.checkLogin(user);
+            return userInfo;
         }
     }
 }

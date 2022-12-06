@@ -28,14 +28,16 @@ namespace DAL
             SqlCommand command = new SqlCommand("signIn", conn);
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@email", user.email);
-            command.Parameters.AddWithValue("@password", user.password);
+            MD5Hash md5 = new MD5Hash();
+            string password = md5.GetHash(user.password);
+            command.Parameters.AddWithValue("@password", password);
             command.Connection = conn;
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
                 while(reader.Read())
                 {
-                    userInfo = reader.GetString(0);
+                    userInfo = reader.GetValue(1).ToString();
                     return userInfo;
                 }
                 reader.Close();
@@ -47,6 +49,11 @@ namespace DAL
             }
             return userInfo;
 
+        }
+
+        public User getUserByEmail(String email)
+        {
+            return null;
         }
     }
 }
