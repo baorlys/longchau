@@ -5,8 +5,7 @@ CREATE DATABASE longchau
 go
 USE longchau;
 go
---USE master
---DROP DATABASE longchau
+
 
 CREATE TABLE roles(
     [roleId] int NOT NULL PRIMARY KEY,
@@ -23,6 +22,32 @@ CREATE TABLE agency(
     [address] nvarchar(255) NOT NULL
 )  ;
 
+CREATE TABLE expressBrand(
+    [brandId] int NOT NULL IDENTITY(0,1)  PRIMARY KEY,
+    [brandName] nvarchar(255) NOT NULL,
+    [nationName] nvarchar(255) DEFAULT NULL
+)  ;
+INSERT INTO expressBrand VALUES('','');
+
+CREATE TABLE company(
+    [cpnId] int NOT NULL IDENTITY(0,1)  PRIMARY KEY,
+    [cpnName] nvarchar(255) NOT NULL,
+    [nationName] nvarchar(255) DEFAULT NULL
+)  ;
+INSERT INTO company VALUES
+('',''),
+('Ferzen' , 'America'),
+('Kelado' , 'Canada'),
+('Aclivia' , 'India'),
+('Avirax' , 'Thailand'),
+('SupplyPharma' , 'VietName'),
+('HeadForge' , 'Singapore'),
+('Vodaxa' , 'Rusia'),
+('Vilexo' , 'China'),
+('ReliefWand' , 'Japan'),
+('Bexira', 'Korea');
+
+
 CREATE TABLE users (
     [userId] int NOT NULL identity(1,1) PRIMARY KEY,
     [email] varchar(255) DEFAULT NULL UNIQUE,
@@ -35,7 +60,7 @@ CREATE TABLE users (
     [roleId] int DEFAULT -1,
     FOREIGN KEY ([roleId]) REFERENCES roles ([roleId])
 )  ;
---SET IDENTITY_INSERT users ON;
+
 INSERT INTO users VALUES ('admin@gmail.com','Admin','e10adc3949ba59abbe56e057f20f883e','0968278202','2002-07-04','VietNam','2222-12-31',0);
 
 CREATE TABLE userManager(
@@ -57,10 +82,12 @@ CREATE TABLE medicine(
     [labelerName] nvarchar(255),
     [quantity] int DEFAULT 0
 )  ;
-(mdcId,name,strength,dosageForm,startDate)
+
 CREATE TABLE import(
     [importId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
-    [importDate] date DEFAULT GETDATE()  
+	[cpnId] int DEFAULT 0,
+    [importDate] datetime DEFAULT GETDATE(),
+    [totalPrice] int DEFAULT 0  
 )  ;
 
 CREATE TABLE importDetail(
@@ -73,11 +100,16 @@ CREATE TABLE importDetail(
 )  ;
 
 CREATE TABLE transactions(
-    [transId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-    [transType] nvarchar(255) NOT NULL,
-    [transDate] date NOT NULL,
+    [transId] INT NOT NULL IDENTITY(0,1) PRIMARY KEY,
+	[userId] INT NOT NULL,
+    [transType] nvarchar(255) DEFAULT NULL,
+    [transDate] datetime NOT NULL,
     [totalPrice] int DEFAULT 0,
-    [state] int default 1 NOT NULL
+	[brandId] int DEFAULT 0,
+	[expressState] int DEFAULT 0,  
+    [state] int default 1 NOT NULL,
+    FOREIGN KEY ([brandId]) REFERENCES expressBrand ([brandId]),
+    FOREIGN KEY ([userId]) REFERENCES users ([userId])
 )  ;
 
 CREATE TABLE transactionDetail(
@@ -108,7 +140,6 @@ CREATE TABLE certificateDetail(
     FOREIGN KEY ([cerId]) REFERENCES certificate ([cerId]),
     FOREIGN KEY ([mdcID]) REFERENCES medicine([mdcID])
 )  ;
-
 GO
 
 INSERT INTO MEDICINE VALUES('12496-0100','BUPRENORPHINE','100 mg/1','SOLUTION','20000','20180226','20231231','Indivior Inc.','12')
