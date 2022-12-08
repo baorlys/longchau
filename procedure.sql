@@ -41,7 +41,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcByID')
 	DROP PROCEDURE getMdcByID
 GO
 
-CREATE PROCEDURE getMdcByID(@mdcId char(10))
+CREATE PROCEDURE getMdcByID(@mdcId varchar(10))
 AS
 SELECT * FROM medicine WHERE mdcId = @mdcId
 GO
@@ -65,7 +65,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcQuantity')
 	DROP PROCEDURE getMdcQuantity
 GO
 
-CREATE PROCEDURE getMdcQuantity(@mdcId char(10))
+CREATE PROCEDURE getMdcQuantity(@mdcId varchar(10))
 AS
 SELECT quantity FROM medicine WHERE mdcId = @mdcId
 GO
@@ -77,7 +77,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcPrice')
 	DROP PROCEDURE getMdcPrice
 GO
 
-CREATE PROCEDURE getMdcPrice(@mdcId char(10))
+CREATE PROCEDURE getMdcPrice(@mdcId varchar(10))
 AS
 SELECT price FROM medicine WHERE mdcId = @mdcId
 GO
@@ -100,22 +100,22 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getTrans')
 	DROP PROCEDURE getTrans
 GO
 
-CREATE PROCEDURE getTrans(@day date,@state int)
+CREATE PROCEDURE getTrans(@day varchar(30),@state int)
 AS
 BEGIN
 IF @day IS NULL
 	BEGIN
-	IF @state = -1
+	IF @state = 2
 		SELECT * FROM transactions
 	ELSE
 		SELECT * FROM transactions WHERE state = @state
 	END
 ELSE
 	BEGIN
-	IF @state = -1
-		SELECT * FROM transactions WHERE CAST(transDate AS DATE) = @day
+	IF @state = 2
+		SELECT * FROM transactions WHERE CAST(transDate AS DATE) = CAST(@day AS DATE)
 	ELSE
-		SELECT * FROM transactions WHERE CAST(transDate AS DATE) = @day AND state = @state
+		SELECT * FROM transactions WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND state = @state
 	END
 END
 GO
@@ -136,51 +136,16 @@ GO
 exec getTransDetail 0
 GO
 
--- Doanh thu theo ngày có tham số
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getRevenueByDay')
-	DROP PROCEDURE getRevenueByDay
+--Doanh thu tu ngay den ngay
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getRevenue')
+	DROP PROCEDURE getRevenue
 GO
 
-CREATE PROCEDURE getRevenueByDay(@day date)
+CREATE PROCEDURE getRevenue(@from date,@to date)
 AS
-SELECT SUM(totalPrice) as revenue FROM transactions WHERE CAST(transDate AS DATE) = @day
+SELECT SUM(totalPrice) FROM transactions WHERE CAST(transDate AS DATE) BETWEEN @from AND @to
 GO
 
--- Doanh thu theo ngày hiện tại
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getRevenueByDayNow')
-	DROP PROCEDURE getRevenueByDayNow
-GO
-
-CREATE PROCEDURE getRevenueByDayNow
-AS
-SELECT SUM(totalPrice) as revenue FROM transactions WHERE CAST(transDate AS DATE) = CAST(GETDATE() AS DATE)
-GO
-
-exec getRevenueByDayNow
-GO
-
--- Doanh thu theo tháng và năm có tham số
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getRevenueByMonth')
-	DROP PROCEDURE getRevenueByMonth
-GO
-
-CREATE PROCEDURE getRevenueByMonth(@month int, @year int)
-AS
-SELECT SUM(totalPrice) as revenue FROM transactions WHERE MONTH(transDate) = @month and YEAR(transDate) = @year
-GO
-
--- Doanh thu theo tháng hiện tại
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getRevenueByMonthNow')
-	DROP PROCEDURE getRevenueByMonthNow
-GO
-
-CREATE PROCEDURE getRevenueByMonthNow
-AS
-SELECT SUM(totalPrice) as revenue FROM transactions WHERE MONTH(transDate) = MONTH(GETDATE()) and YEAR(transDate) = YEAR(GETDATE())
-GO
-
-exec getRevenueByMonthNow
-GO
 
 -------------------------------------------------------------
 -- Sign in
@@ -209,29 +174,58 @@ GO
 --exec signUp 'ngxbinh47@gmail.com', N'Nguyễn Xuân Bình','0932758302','e10adc3949ba59abbe56e057f20f883e'
 GO
 
---Create import
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createImport')
-	DROP PROCEDURE createImport
+--Create request import
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createRequestImport')
+	DROP PROCEDURE createRequestImport
 GO
 
-CREATE PROCEDURE createImport(@medicineHandler medicineHandler READONLY,@cpn int,@importDate datetime,@totalPrice int)
+CREATE PROCEDURE createRequestImport(@mdcID varchar(10))
 AS
 BEGIN
-	INSERT INTO import(cpnId,importDate,totalPrice) VALUES(@cpn,@importDate,@totalPrice)
 	DECLARE @importId int
+	INSERT INTO import(mdcID) VALUES(@mdcID)
 	SET @importId = SCOPE_IDENTITY()
-	INSERT INTO importDetail(importId,mdcId,quantity) SELECT @importId,mdcId,quantity FROM @medicineHandler
-	UPDATE medicine SET medicine.quantity = medicine.quantity + tablemdc.quantity FROM @medicineHandler tablemdc JOIN medicine  ON medicine.mdcId = tablemdc.mdcId
+	INSERT INTO storage(importId) VALUES(@importId)
 	RETURN 1
-END 
+END
 GO
 
-DECLARE @medicineHandler AS medicineHandler
-INSERT INTO @medicineHandler VALUES('0006-0221',2)
-INSERT INTO @medicineHandler VALUES('0009-0094',3)
-INSERT INTO @medicineHandler VALUES('0024-5910',4)
-exec createImport @medicineHandler,1,'2022-12-7',100000
+exec createRequestImport '0006-0221'
 GO
+
+--Approve request import from storage
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'approveRequestImport')
+	DROP PROCEDURE approveRequestImport
+GO
+
+CREATE PROCEDURE approveRequestImport(@importId int)
+AS
+BEGIN
+	UPDATE storage SET status = 1 WHERE importId = @importId
+	UPDATE import SET status = 1 WHERE importId = @importId
+	INSERT INTO importDetail(importId,quantity,dateExpire) SELECT importId,quantity,dateExpire FROM storage WHERE importId = @importId
+	RETURN 1
+END
+GO
+
+exec approveRequestImport 1
+GO
+
+--Update request import
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateRequestImport')
+	DROP PROCEDURE updateRequestImport
+GO
+
+CREATE PROCEDURE updateRequestImport(@importId int)
+AS
+BEGIN
+	UPDATE import SET status = 2 WHERE importId = @importId
+	UPDATE medicine SET quantity = importDetail.quantity, dateExpire = CAST(importDetail.dateExpire AS DATE) FROM importDetail,import WHERE import.mdcId = medicine.mdcId AND import.importID=@importId
+	RETURN 1
+END
+GO
+
+exec updateRequestImport 1
 
 --Create transaction
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createTransaction')
@@ -263,7 +257,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateMdcQuantity')
 	DROP PROCEDURE updateMdcQuantity
 GO
 
-CREATE PROCEDURE updateMdcQuantity(@mdcId char(10),@quantity int)
+CREATE PROCEDURE updateMdcQuantity(@mdcId varchar(10),@quantity int)
 AS
 UPDATE medicine set quantity = quantity + @quantity WHERE mdcId = @mdcId
 GO
@@ -271,4 +265,17 @@ GO
 exec updateMdcQuantity '0006-0221',2
 GO
 
+--Delete transaction
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'deleteTrans')
+	DROP PROCEDURE deleteTrans
+GO
 
+CREATE PROCEDURE deleteTrans(@transId int)
+AS
+BEGIN
+	UPDATE medicine SET quantity = quantity + transactionDetail.quantity FROM transactionDetail WHERE
+	transactionDetail.transId = @transId
+	DELETE FROM transactionDetail WHERE transId = @transId
+	DELETE FROM transactions WHERE transId = @transId
+	RETURN 1
+END

@@ -29,25 +29,6 @@ CREATE TABLE expressBrand(
 )  ;
 INSERT INTO expressBrand VALUES('','');
 
-CREATE TABLE company(
-    [cpnId] int NOT NULL IDENTITY(0,1)  PRIMARY KEY,
-    [cpnName] nvarchar(255) NOT NULL,
-    [nationName] nvarchar(255) DEFAULT NULL
-)  ;
-INSERT INTO company VALUES
-('',''),
-('Ferzen' , 'America'),
-('Kelado' , 'Canada'),
-('Aclivia' , 'India'),
-('Avirax' , 'Thailand'),
-('SupplyPharma' , 'VietName'),
-('HeadForge' , 'Singapore'),
-('Vodaxa' , 'Rusia'),
-('Vilexo' , 'China'),
-('ReliefWand' , 'Japan'),
-('Bexira', 'Korea');
-
-
 CREATE TABLE users (
     [userId] int NOT NULL identity(1,1) PRIMARY KEY,
     [email] varchar(255) DEFAULT NULL UNIQUE,
@@ -72,7 +53,7 @@ CREATE TABLE userManager(
 )  ;
 
 CREATE TABLE medicine(
-    [mdcId] char(10) NOT NULL PRIMARY KEY,
+    [mdcId] varchar(10) NOT NULL PRIMARY KEY,
     [name] nvarchar(255),
     [strength] nvarchar(255),
     [dosageForm] nvarchar(255),
@@ -85,18 +66,26 @@ CREATE TABLE medicine(
 
 CREATE TABLE import(
     [importId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[cpnId] int DEFAULT 0,
-    [importDate] datetime DEFAULT GETDATE(),
-    [totalPrice] int DEFAULT 0  
+    [requestDate] datetime DEFAULT GETDATE(),
+    [mdcId] varchar(10) NOT NULL,
+    [status] int DEFAULT 0 NOT NULL,
+    FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]) ON DELETE CASCADE
 )  ;
 
 CREATE TABLE importDetail(
     [importId] int NOT NULL,
-    [mdcId] char(10) NOT NULL,
     [quantity] int DEFAULT 0 NOT NULL,
-    FOREIGN KEY ([importId]) REFERENCES import ([importId]),
-    FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId])
+    [dateExpire] date NOT NULL,
+    FOREIGN KEY ([importId]) REFERENCES import ([importId]) ON DELETE CASCADE
+)  ;
 
+CREATE TABLE storage(
+    [storageId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    [importId] int NOT NULL,
+    [quantity] int DEFAULT 10 NOT NULL,
+    [dateExpire] date DEFAULT '2025-12-31',
+    [status] int DEFAULT 0 NOT NULL,
+    FOREIGN KEY ([importId]) REFERENCES import ([importId]) ON DELETE CASCADE
 )  ;
 
 CREATE TABLE transactions(
@@ -114,10 +103,10 @@ CREATE TABLE transactions(
 
 CREATE TABLE transactionDetail(
     [transId] INT NOT NULL,
-    [mdcID] char(10) NOT NULL,
+    [mdcID] varchar(10) NOT NULL,
     [quantity] int default 0 NOT NULL,
-    FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]),
-    FOREIGN KEY ([transId]) REFERENCES transactions ([transId])
+    FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]) ON DELETE CASCADE,
+    FOREIGN KEY ([transId]) REFERENCES transactions ([transId]) ON DELETE CASCADE
 )  ;
 
 CREATE TABLE disease(
@@ -135,10 +124,10 @@ CREATE TABLE certificate(
 
 CREATE TABLE certificateDetail(
     [cerId] char(8) NOT NULL,
-    [mdcID] char(10) NOT NULL,
+    [mdcID] varchar(10) NOT NULL,
     [quantity] int DEFAULT 0,
     FOREIGN KEY ([cerId]) REFERENCES certificate ([cerId]),
-    FOREIGN KEY ([mdcID]) REFERENCES medicine([mdcID])
+    FOREIGN KEY ([mdcID]) REFERENCES medicine([mdcID]) ON DELETE CASCADE
 )  ;
 GO
 
