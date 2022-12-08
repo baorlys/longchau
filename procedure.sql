@@ -104,9 +104,19 @@ CREATE PROCEDURE getTrans(@day date,@state int)
 AS
 BEGIN
 IF @day IS NULL
-	SELECT * FROM transactions WHERE state = @state
+	BEGIN
+	IF @state = -1
+		SELECT * FROM transactions
+	ELSE
+		SELECT * FROM transactions WHERE state = @state
+	END
 ELSE
-	SELECT * FROM transactions WHERE CAST(transDate AS DATE) = @day AND state = @state
+	BEGIN
+	IF @state = -1
+		SELECT * FROM transactions WHERE CAST(transDate AS DATE) = @day
+	ELSE
+		SELECT * FROM transactions WHERE CAST(transDate AS DATE) = @day AND state = @state
+	END
 END
 GO
 
