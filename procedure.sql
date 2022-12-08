@@ -37,52 +37,52 @@ GO
 exec checkPhone '0968278202'
 GO
 
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'checkMdcId')
-	DROP PROCEDURE checkMdcId
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcByID')
+	DROP PROCEDURE getMdcByID
 GO
 
-CREATE PROCEDURE checkMdcId(@mdcId char(10))
+CREATE PROCEDURE getMdcByID(@mdcId char(10))
 AS
 SELECT * FROM medicine WHERE mdcId = @mdcId
 GO
 
-exec checkMdcId '0006-0221'
+exec getMdcByID '0006-0221'
 GO
 
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'checkMdcName')
-	DROP PROCEDURE checkMdcName
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcByName')
+	DROP PROCEDURE getMdcByName
 GO
 
-CREATE PROCEDURE checkMdcName(@name nvarchar(255))
+CREATE PROCEDURE getMdcByName(@name nvarchar(255))
 AS
 SELECT * FROM medicine WHERE name like CONCAT('%', @name, '%')
 GO
 
-exec checkMdcName 'opion'
+exec getMdcByName 'opion'
 GO
 
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'checkQuantityMdc')
-	DROP PROCEDURE checkQuantityMdc
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcQuantity')
+	DROP PROCEDURE getMdcQuantity
 GO
 
-CREATE PROCEDURE checkQuantityMdc(@mdcId char(10))
+CREATE PROCEDURE getMdcQuantity(@mdcId char(10))
 AS
 SELECT quantity FROM medicine WHERE mdcId = @mdcId
 GO
 
-exec checkQuantityMdc '0006-0221'
+exec getMdcQuantity '0006-0221'
 GO
 
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'checkPriceMdc')
-	DROP PROCEDURE checkPriceMdc
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcPrice')
+	DROP PROCEDURE get
 GO
 
-CREATE PROCEDURE checkPriceMdc(@mdcId char(10))
+CREATE PROCEDURE get(@mdcId char(10))
 AS
 SELECT price FROM medicine WHERE mdcId = @mdcId
 GO
 
-exec checkPriceMdc '0006-0221'
+exec get '0006-0221'
 GO
 
 -- Get company by cpnId
