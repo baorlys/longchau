@@ -53,7 +53,7 @@ CREATE TABLE userManager(
 )  ;
 
 CREATE TABLE medicine(
-    [mdcId] varchar(10) NOT NULL PRIMARY KEY,
+    [mdcId] char(10) NOT NULL PRIMARY KEY,
     [name] nvarchar(255),
     [strength] nvarchar(255),
     [dosageForm] nvarchar(255),
@@ -67,7 +67,7 @@ CREATE TABLE medicine(
 CREATE TABLE import(
     [importId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
     [requestDate] datetime DEFAULT GETDATE(),
-    [mdcId] varchar(10) NOT NULL,
+    [mdcId] char(10) NOT NULL,
     [status] int DEFAULT 0 NOT NULL,
     FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]) ON DELETE CASCADE
 )  ;
@@ -103,7 +103,7 @@ CREATE TABLE transactions(
 
 CREATE TABLE transactionDetail(
     [transId] INT NOT NULL,
-    [mdcID] varchar(10) NOT NULL,
+    [mdcID] char(10) NOT NULL,
     [quantity] int default 0 NOT NULL,
     FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]) ON DELETE CASCADE,
     FOREIGN KEY ([transId]) REFERENCES transactions ([transId]) ON DELETE CASCADE
@@ -124,7 +124,7 @@ CREATE TABLE certificate(
 
 CREATE TABLE certificateDetail(
     [cerId] char(8) NOT NULL,
-    [mdcID] varchar(10) NOT NULL,
+    [mdcID] char(10) NOT NULL,
     [quantity] int DEFAULT 0,
     FOREIGN KEY ([cerId]) REFERENCES certificate ([cerId]),
     FOREIGN KEY ([mdcID]) REFERENCES medicine([mdcID]) ON DELETE CASCADE

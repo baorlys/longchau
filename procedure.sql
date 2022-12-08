@@ -41,7 +41,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcByID')
 	DROP PROCEDURE getMdcByID
 GO
 
-CREATE PROCEDURE getMdcByID(@mdcId varchar(10))
+CREATE PROCEDURE getMdcByID(@mdcId char(10))
 AS
 SELECT * FROM medicine WHERE mdcId = @mdcId
 GO
@@ -65,7 +65,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcQuantity')
 	DROP PROCEDURE getMdcQuantity
 GO
 
-CREATE PROCEDURE getMdcQuantity(@mdcId varchar(10))
+CREATE PROCEDURE getMdcQuantity(@mdcId char(10))
 AS
 SELECT quantity FROM medicine WHERE mdcId = @mdcId
 GO
@@ -77,7 +77,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcPrice')
 	DROP PROCEDURE getMdcPrice
 GO
 
-CREATE PROCEDURE getMdcPrice(@mdcId varchar(10))
+CREATE PROCEDURE getMdcPrice(@mdcId char(10))
 AS
 SELECT price FROM medicine WHERE mdcId = @mdcId
 GO
@@ -179,7 +179,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createRequestImport')
 	DROP PROCEDURE createRequestImport
 GO
 
-CREATE PROCEDURE createRequestImport(@mdcID varchar(10))
+CREATE PROCEDURE createRequestImport(@mdcID char(10))
 AS
 BEGIN
 	DECLARE @importId int
@@ -220,12 +220,44 @@ CREATE PROCEDURE updateRequestImport(@importId int)
 AS
 BEGIN
 	UPDATE import SET status = 2 WHERE importId = @importId
+	UPDATE Storage SET status = 2 WHERE importId = @importId
 	UPDATE medicine SET quantity = importDetail.quantity, dateExpire = CAST(importDetail.dateExpire AS DATE) FROM importDetail,import WHERE import.mdcId = medicine.mdcId AND import.importID=@importId
 	RETURN 1
 END
 GO
 
 exec updateRequestImport 1
+GO
+
+--Get request import
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getRequestImport')
+	DROP PROCEDURE getRequestImport
+GO
+
+CREATE PROCEDURE getRequestImport(@status int)
+AS
+BEGIN
+	IF @status = 3
+		SELECT * FROM import
+	ELSE
+		SELECT * FROM import WHERE status = @status
+END
+
+--Get storage by status
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getStorage')
+	DROP PROCEDURE getStorage
+GO
+
+CREATE PROCEDURE getStorage(@status int)
+AS
+BEGIN
+	IF @status = 3
+		SELECT * FROM storage
+	ELSE
+		SELECT * FROM storage WHERE status = @status
+END
+
+
 
 --Create transaction
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createTransaction')
@@ -257,7 +289,7 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateMdcQuantity')
 	DROP PROCEDURE updateMdcQuantity
 GO
 
-CREATE PROCEDURE updateMdcQuantity(@mdcId varchar(10),@quantity int)
+CREATE PROCEDURE updateMdcQuantity(@mdcId char(10),@quantity int)
 AS
 UPDATE medicine set quantity = quantity + @quantity WHERE mdcId = @mdcId
 GO
