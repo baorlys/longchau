@@ -100,7 +100,7 @@ CREATE TABLE importDetail(
 )  ;
 
 CREATE TABLE transactions(
-    [transId] INT NOT NULL IDENTITY(0,1) PRIMARY KEY,
+    [transId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[userId] INT NOT NULL,
     [transType] nvarchar(255) DEFAULT NULL,
     [transDate] datetime NOT NULL,

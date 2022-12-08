@@ -128,9 +128,12 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getTransDetail')
 	DROP PROCEDURE getTransDetail
 GO
 
-CREATE PROCEDURE getTransDetail(@transId char(10))
+CREATE PROCEDURE getTransDetail(@transId int)
 AS
 SELECT transactionDetail.transId, transactionDetail.mdcID, medicine.name, transactionDetail.quantity FROM transactionDetail JOIN medicine ON  transactionDetail.mdcID = medicine.mdcID WHERE transId = @transId
+GO
+
+exec getTransDetail 0
 GO
 
 -- Doanh thu theo ngày có tham số
@@ -267,4 +270,5 @@ GO
 
 exec updateMdcQuantity '0006-0221',2
 GO
+
 
