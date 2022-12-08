@@ -74,15 +74,15 @@ exec getMdcQuantity '0006-0221'
 GO
 
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcPrice')
-	DROP PROCEDURE get
+	DROP PROCEDURE getMdcPrice
 GO
 
-CREATE PROCEDURE get(@mdcId char(10))
+CREATE PROCEDURE getMdcPrice(@mdcId char(10))
 AS
 SELECT price FROM medicine WHERE mdcId = @mdcId
 GO
 
-exec get '0006-0221'
+exec getMdcPrice '0006-0221'
 GO
 
 -- Get company by cpnId
@@ -93,6 +93,34 @@ GO
 CREATE PROCEDURE getCompany(@cpnId char(10))
 AS
 SELECT * FROM company WHERE cpnId = @cpnId
+GO
+
+-- Get transaction by day
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getTrans')
+	DROP PROCEDURE getTrans
+GO
+
+CREATE PROCEDURE getTrans(@day date,@state int)
+AS
+BEGIN
+IF @day IS NULL
+	SELECT * FROM transactions WHERE state = @state
+ELSE
+	SELECT * FROM transactions WHERE CAST(transDate AS DATE) = @day AND state = @state
+END
+GO
+
+exec getTrans null,0
+GO
+
+-- Get transaction detail by transId
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getTransDetail')
+	DROP PROCEDURE getTransDetail
+GO
+
+CREATE PROCEDURE getTransDetail(@transId char(10))
+AS
+SELECT transactionDetail.transId, transactionDetail.mdcID, medicine.name, transactionDetail.quantity FROM transactionDetail JOIN medicine ON  transactionDetail.mdcID = medicine.mdcID WHERE transId = @transId
 GO
 
 -- Doanh thu theo ngày có tham số
@@ -229,3 +257,4 @@ GO
 
 exec updateMdcQuantity '0006-0221',2
 GO
+

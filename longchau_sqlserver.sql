@@ -107,7 +107,7 @@ CREATE TABLE transactions(
     [totalPrice] int DEFAULT 0,
 	[brandId] int DEFAULT 0,
 	[expressState] int DEFAULT 0,  
-    [state] int default 1 NOT NULL,
+    [state] int default 0 NOT NULL,
     FOREIGN KEY ([brandId]) REFERENCES expressBrand ([brandId]),
     FOREIGN KEY ([userId]) REFERENCES users ([userId])
 )  ;
