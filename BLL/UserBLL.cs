@@ -14,20 +14,19 @@ namespace BLL
 {
     public class UserBLL
     {
-        UserDAL userDAL = new UserDAL();
 
         public string checkLogin(User user)
         {
-            if (user.email == "")
+            if (user.Email == "")
             {
                 return "required email";
             }
-            if (user.password == "")
+            if (user.Password == "")
             {
                 return "required password";
             }
-            string userInfo = userDAL.checkLogin(user);
-            return userInfo;
+            if (UserDAL.Instance.checkLogin(user) == true) return "success";
+            else return "invalid email/pass";
         }
 
         private bool isName(string val)
@@ -81,19 +80,19 @@ namespace BLL
         public MessageHandler checkSignUp(User user,string confirmPassword)
         {
             MessageHandler message = new MessageHandler("", true);
-            if (user.name == "")
+            if (user.Name == "")
             {
                 message.setMessage("Vui lòng nhập tên");
                 message.setStatus(false);
                 return message;
             }
-            if (!isName(user.name))
-            {
-                message.setMessage("Tên không hợp lệ");
-                message.setStatus(false);
-                return message;
-            }
-            if (user.phone == "")
+            //if (!isName(user.Name))
+            //{
+            //    message.setMessage("Tên không hợp lệ");
+            //    message.setStatus(false);
+            //    return message;
+            //}
+            if (user.Phone == "")
             {
                 message.setMessage("Vui lòng nhập số điện thoại");
                 message.setStatus(false);
@@ -105,32 +104,32 @@ namespace BLL
             //    message.setStatus(false);
             //    return message;
             //}
-            if (!isPhoneNumber(user.phone))
+            if (!isPhoneNumber(user.Phone))
             {
                 message.setMessage("Số điện thoại không hợp lệ");
                 message.setStatus(false);
                 return message;
             }
-            if (user.email == "")
+            if (user.Email == "")
             {
                 message.setMessage("Vui lòng nhập email");
                 message.setStatus(false);
                 return message;
             }
-            if (!isEmail(user.email))
+            if (!isEmail(user.Email))
             {
                 message.setMessage("Email không hợp lệ");
                 message.setStatus(false);
                 return message;
             }
-            if (user.password == "")
+            if (user.Password == "")
             {
                 message.setMessage("Vui lòng nhập mật khẩu");
                 message.setStatus(false);
                 return message;
             }
 
-            MessageHandler validatePass = validatePassword(user.password);
+            MessageHandler validatePass = validatePassword(user.Password);
             if (!validatePass.getStatus())
             {
                 message.setMessage(validatePass.getMessage());
@@ -143,13 +142,13 @@ namespace BLL
                 message.setStatus(false);
                 return message;
             }
-            if (!user.password.Equals(confirmPassword))
+            if (!user.Password.Equals(confirmPassword))
             {
                 message.setMessage("Mật khẩu không khớp");
                 message.setStatus(false);
                 return message;
             }
-            MessageHandler info = userDAL.checkSignUp(user);
+            MessageHandler info = UserDAL.Instance.checkSignUp(user);
             return info;
         }
     }

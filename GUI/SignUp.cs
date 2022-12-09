@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
+using DAL;
 using DTO;
 
 namespace GUI
@@ -23,18 +24,20 @@ namespace GUI
 
         private void btnSignUp_Click(object sender, EventArgs e)
         {
-            user.email = txbEmail.Text;
-            user.name = txbName.Text;
-            user.phone = txbPhone.Text;
-            user.password = txbPassword.Text;
+            user.Email = txbEmail.Text;
+            user.Name = txbName.Text;
+            user.Phone = txbPhone.Text;
+            user.Password = txbPassword.Text;
             string confirmPass = txbConfirm.Text;
             MessageHandler etUser = userBLL.checkSignUp(user,confirmPass);
-            if (!etUser.getStatus())
+            if (etUser.getStatus() == false)
             {
                 MessageBox.Show(etUser.getMessage());
                 return;
             }
-            MessageBox.Show("Thành công");
+            User userLogin = UserDAL.Instance.getUserByEmail(txbEmail.Text);
+            Customer customer = new Customer(userLogin);
+            customer.ShowDialog();
         }
     }
 }

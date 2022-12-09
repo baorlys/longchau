@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class UserInfo : Form
+    public partial class Customer : Form
     {
         private User userLogin;
 
@@ -20,11 +20,11 @@ namespace GUI
             get { return userLogin; }
             set { userLogin = value; }
         }
-        public UserInfo(User userLogin)
+        public Customer(User userLogin)
         {
             InitializeComponent();
-            this.UserLogin = userLogin;
+            this.userLogin = userLogin;
+            label1.Text = "Hello " + userLogin.Name;
         }
-
     }
 }

@@ -40,45 +40,48 @@
             // lbEmail
             // 
             this.lbEmail.AutoSize = true;
-            this.lbEmail.Location = new System.Drawing.Point(86, 84);
-            this.lbEmail.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lbEmail.Location = new System.Drawing.Point(75, 63);
+            this.lbEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbEmail.Name = "lbEmail";
-            this.lbEmail.Size = new System.Drawing.Size(46, 20);
+            this.lbEmail.Size = new System.Drawing.Size(36, 15);
             this.lbEmail.TabIndex = 0;
             this.lbEmail.Text = "Email";
             // 
             // lbPassword
             // 
             this.lbPassword.AutoSize = true;
-            this.lbPassword.Location = new System.Drawing.Point(86, 159);
-            this.lbPassword.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lbPassword.Location = new System.Drawing.Point(75, 119);
+            this.lbPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPassword.Name = "lbPassword";
-            this.lbPassword.Size = new System.Drawing.Size(70, 20);
+            this.lbPassword.Size = new System.Drawing.Size(57, 15);
             this.lbPassword.TabIndex = 1;
             this.lbPassword.Text = "Mật khẩu";
             // 
             // txbEmail
             // 
-            this.txbEmail.Location = new System.Drawing.Point(202, 84);
-            this.txbEmail.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.txbEmail.Location = new System.Drawing.Point(177, 63);
+            this.txbEmail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txbEmail.Name = "txbEmail";
-            this.txbEmail.Size = new System.Drawing.Size(191, 27);
+            this.txbEmail.Size = new System.Drawing.Size(168, 23);
             this.txbEmail.TabIndex = 2;
+            this.txbEmail.Text = "admin@gmail.com";
             // 
             // txbPassword
             // 
-            this.txbPassword.Location = new System.Drawing.Point(202, 159);
-            this.txbPassword.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.txbPassword.Location = new System.Drawing.Point(177, 119);
+            this.txbPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txbPassword.Name = "txbPassword";
-            this.txbPassword.Size = new System.Drawing.Size(191, 27);
+            this.txbPassword.Size = new System.Drawing.Size(168, 23);
             this.txbPassword.TabIndex = 3;
+            this.txbPassword.Text = "123456";
+            this.txbPassword.UseSystemPasswordChar = true;
             // 
             // btnSignIn
             // 
-            this.btnSignIn.Location = new System.Drawing.Point(291, 243);
-            this.btnSignIn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnSignIn.Location = new System.Drawing.Point(255, 182);
+            this.btnSignIn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnSignIn.Name = "btnSignIn";
-            this.btnSignIn.Size = new System.Drawing.Size(101, 36);
+            this.btnSignIn.Size = new System.Drawing.Size(88, 27);
             this.btnSignIn.TabIndex = 4;
             this.btnSignIn.Text = "đăng nhập";
             this.btnSignIn.UseVisualStyleBackColor = true;
@@ -86,10 +89,10 @@
             // 
             // btnSignUp
             // 
-            this.btnSignUp.Location = new System.Drawing.Point(418, 243);
-            this.btnSignUp.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnSignUp.Location = new System.Drawing.Point(366, 182);
+            this.btnSignUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnSignUp.Name = "btnSignUp";
-            this.btnSignUp.Size = new System.Drawing.Size(101, 36);
+            this.btnSignUp.Size = new System.Drawing.Size(88, 27);
             this.btnSignUp.TabIndex = 5;
             this.btnSignUp.Text = "đăng kí";
             this.btnSignUp.UseVisualStyleBackColor = true;
@@ -97,10 +100,10 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(475, 19);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnExit.Location = new System.Drawing.Point(416, 14);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(101, 36);
+            this.btnExit.Size = new System.Drawing.Size(88, 27);
             this.btnExit.TabIndex = 6;
             this.btnExit.Text = "thoát";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -108,9 +111,9 @@
             // 
             // SignIn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(615, 373);
+            this.ClientSize = new System.Drawing.Size(538, 280);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.btnSignIn);
@@ -118,7 +121,7 @@
             this.Controls.Add(this.txbEmail);
             this.Controls.Add(this.lbPassword);
             this.Controls.Add(this.lbEmail);
-            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "SignIn";
             this.Text = "Đăng nhập";
             this.ResumeLayout(false);

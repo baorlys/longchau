@@ -5,8 +5,7 @@ CREATE DATABASE longchau
 go
 USE longchau;
 go
---USE master
---DROP DATABASE longchau
+
 
 CREATE TABLE roles(
     [roleId] int NOT NULL PRIMARY KEY,
@@ -23,6 +22,13 @@ CREATE TABLE agency(
     [address] nvarchar(255) NOT NULL
 )  ;
 
+CREATE TABLE expressBrand(
+    [brandId] int NOT NULL IDENTITY(0,1)  PRIMARY KEY,
+    [brandName] nvarchar(255) NOT NULL,
+    [nationName] nvarchar(255) DEFAULT NULL
+)  ;
+INSERT INTO expressBrand VALUES('','');
+
 CREATE TABLE users (
     [userId] int NOT NULL identity(1,1) PRIMARY KEY,
     [email] varchar(255) DEFAULT NULL UNIQUE,
@@ -35,7 +41,7 @@ CREATE TABLE users (
     [roleId] int DEFAULT -1,
     FOREIGN KEY ([roleId]) REFERENCES roles ([roleId])
 )  ;
---SET IDENTITY_INSERT users ON;
+
 INSERT INTO users VALUES ('admin@gmail.com','Admin','e10adc3949ba59abbe56e057f20f883e','0968278202','2002-07-04','VietNam','2222-12-31',0);
 
 CREATE TABLE userManager(
@@ -47,7 +53,7 @@ CREATE TABLE userManager(
 )  ;
 
 CREATE TABLE medicine(
-    [mdcId] char(10) NOT NULL PRIMARY KEY,
+    [mdcId] varchar(10) NOT NULL PRIMARY KEY,
     [name] nvarchar(255),
     [strength] nvarchar(255),
     [dosageForm] nvarchar(255),
@@ -57,35 +63,50 @@ CREATE TABLE medicine(
     [labelerName] nvarchar(255),
     [quantity] int DEFAULT 0
 )  ;
-(mdcId,name,strength,dosageForm,startDate)
+
 CREATE TABLE import(
     [importId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
-    [importDate] date DEFAULT GETDATE()  
+    [requestDate] datetime DEFAULT GETDATE(),
+    [mdcId] varchar(10)  NOT NULL,
+    [status] int DEFAULT 0 NOT NULL,
+    FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]) ON DELETE CASCADE
 )  ;
 
 CREATE TABLE importDetail(
     [importId] int NOT NULL,
-    [mdcId] char(10) NOT NULL,
     [quantity] int DEFAULT 0 NOT NULL,
-    FOREIGN KEY ([importId]) REFERENCES import ([importId]),
-    FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId])
+    [dateExpire] date NOT NULL,
+    FOREIGN KEY ([importId]) REFERENCES import ([importId]) ON DELETE CASCADE
+)  ;
 
+CREATE TABLE storage(
+    [storageId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    [importId] int NOT NULL,
+    [quantity] int DEFAULT 10 NOT NULL,
+    [dateExpire] date DEFAULT '2025-12-31',
+    [status] int DEFAULT 0 NOT NULL,
+    FOREIGN KEY ([importId]) REFERENCES import ([importId]) ON DELETE CASCADE
 )  ;
 
 CREATE TABLE transactions(
     [transId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-    [transType] nvarchar(255) NOT NULL,
-    [transDate] date NOT NULL,
+	[userId] INT NOT NULL,
+    [transType] nvarchar(255) DEFAULT NULL,
+    [transDate] datetime NOT NULL,
     [totalPrice] int DEFAULT 0,
-    [state] int default 1 NOT NULL
+	[brandId] int DEFAULT 0,
+	[expressState] int DEFAULT 0,  
+    [state] int default 0 NOT NULL,
+    FOREIGN KEY ([brandId]) REFERENCES expressBrand ([brandId]),
+    FOREIGN KEY ([userId]) REFERENCES users ([userId])
 )  ;
 
 CREATE TABLE transactionDetail(
     [transId] INT NOT NULL,
-    [mdcID] char(10) NOT NULL,
+    [mdcID] varchar(10)  NOT NULL,
     [quantity] int default 0 NOT NULL,
-    FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]),
-    FOREIGN KEY ([transId]) REFERENCES transactions ([transId])
+    FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]) ON DELETE CASCADE,
+    FOREIGN KEY ([transId]) REFERENCES transactions ([transId]) ON DELETE CASCADE
 )  ;
 
 CREATE TABLE disease(
@@ -103,12 +124,11 @@ CREATE TABLE certificate(
 
 CREATE TABLE certificateDetail(
     [cerId] char(8) NOT NULL,
-    [mdcID] char(10) NOT NULL,
+    [mdcID] varchar(10) NOT NULL,
     [quantity] int DEFAULT 0,
     FOREIGN KEY ([cerId]) REFERENCES certificate ([cerId]),
-    FOREIGN KEY ([mdcID]) REFERENCES medicine([mdcID])
+    FOREIGN KEY ([mdcID]) REFERENCES medicine([mdcID]) ON DELETE CASCADE
 )  ;
-
 GO
 
 INSERT INTO MEDICINE VALUES('12496-0100','BUPRENORPHINE','100 mg/1','SOLUTION','20000','20180226','20231231','Indivior Inc.','12')
@@ -135,7 +155,6 @@ INSERT INTO MEDICINE VALUES('0078-0607','FINGOLIMOD HYDROCHLORIDE','.5 mg/1','CA
 INSERT INTO MEDICINE VALUES('68071-5083','BENZONATATE','100 mg/1','CAPSULE','64000','20181221','20231231','NuCare Pharmaceuticals,Inc.','0')
 INSERT INTO MEDICINE VALUES('73317-4258','METFORMIN HYDROCHLORIDE','1000 mg/1','TABLET, FILM COATED, EXTENDED RELEASE','140000','20210416','20221231','SLV PHARMACEUTICALS LLC DBA AUM PHARMACEUTICALS','3')
 GO
-
 
 
 

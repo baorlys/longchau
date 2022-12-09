@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
+using DAL;
 using DTO;
 
 
@@ -24,10 +25,10 @@ namespace GUI
 
         private void btnSignIn_Click(object sender, EventArgs e)
         {
-            user.email = txbEmail.Text;
-            user.password = txbPassword.Text;
-            string userInfo = userBLL.checkLogin(user);
-            switch (userInfo)
+            user.Email = txbEmail.Text;
+            user.Password = txbPassword.Text;
+            string message = userBLL.checkLogin(user);
+            switch (message)
             {
                 case "required email":
                     MessageBox.Show("Vui lòng nhập email");
@@ -39,7 +40,19 @@ namespace GUI
                     MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
                     return;
             }
-            MessageBox.Show(userInfo);
+            User userLogin = UserDAL.Instance.getUserByEmail(txbEmail.Text);
+            this.Hide();
+            if(userLogin.RoleId == 0)
+            {
+                Admin admin = new Admin(userLogin);
+                admin.ShowDialog();
+            }
+            else
+            {
+                Customer customer = new Customer(userLogin);
+                customer.ShowDialog();
+            }
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
