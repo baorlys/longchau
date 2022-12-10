@@ -28,115 +28,247 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbEmail = new System.Windows.Forms.Label();
-            this.lbPassword = new System.Windows.Forms.Label();
-            this.txbEmail = new System.Windows.Forms.TextBox();
-            this.txbPassword = new System.Windows.Forms.TextBox();
-            this.btnSignIn = new System.Windows.Forms.Button();
-            this.btnSignUp = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignIn));
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.customButton2 = new GUI.Custom.CustomButton.CustomButton();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.customInput2 = new GUI.Custom.CustomInput.CustomInput();
+            this.label5 = new System.Windows.Forms.Label();
+            this.customInput1 = new GUI.Custom.CustomInput.CustomInput();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.customButton1 = new GUI.Custom.CustomButton.CustomButton();
+            this.label2 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // lbEmail
+            // splitContainer1
             // 
-            this.lbEmail.AutoSize = true;
-            this.lbEmail.Location = new System.Drawing.Point(75, 63);
-            this.lbEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbEmail.Name = "lbEmail";
-            this.lbEmail.Size = new System.Drawing.Size(36, 15);
-            this.lbEmail.TabIndex = 0;
-            this.lbEmail.Text = "Email";
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
             // 
-            // lbPassword
+            // splitContainer1.Panel1
             // 
-            this.lbPassword.AutoSize = true;
-            this.lbPassword.Location = new System.Drawing.Point(75, 119);
-            this.lbPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbPassword.Name = "lbPassword";
-            this.lbPassword.Size = new System.Drawing.Size(57, 15);
-            this.lbPassword.TabIndex = 1;
-            this.lbPassword.Text = "Mật khẩu";
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
             // 
-            // txbEmail
+            // splitContainer1.Panel2
             // 
-            this.txbEmail.Location = new System.Drawing.Point(177, 63);
-            this.txbEmail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txbEmail.Name = "txbEmail";
-            this.txbEmail.Size = new System.Drawing.Size(168, 23);
-            this.txbEmail.TabIndex = 2;
-            this.txbEmail.Text = "bao@gmail.com";
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.White;
+            this.splitContainer1.Panel2.Controls.Add(this.customButton2);
+            this.splitContainer1.Panel2.Controls.Add(this.linkLabel1);
+            this.splitContainer1.Panel2.Controls.Add(this.customInput2);
+            this.splitContainer1.Panel2.Controls.Add(this.label5);
+            this.splitContainer1.Panel2.Controls.Add(this.customInput1);
+            this.splitContainer1.Panel2.Controls.Add(this.label4);
+            this.splitContainer1.Panel2.Controls.Add(this.label3);
+            this.splitContainer1.Panel2.Controls.Add(this.customButton1);
+            this.splitContainer1.Panel2.Controls.Add(this.label2);
+            this.splitContainer1.Panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.splitContainer1.Size = new System.Drawing.Size(882, 553);
+            this.splitContainer1.SplitterDistance = 294;
+            this.splitContainer1.TabIndex = 0;
             // 
-            // txbPassword
+            // pictureBox1
             // 
-            this.txbPassword.Location = new System.Drawing.Point(177, 119);
-            this.txbPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txbPassword.Name = "txbPassword";
-            this.txbPassword.Size = new System.Drawing.Size(168, 23);
-            this.txbPassword.TabIndex = 3;
-            this.txbPassword.Text = "123456Bao";
-            this.txbPassword.UseSystemPasswordChar = true;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(68, 212);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(160, 160);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
-            // btnSignIn
+            // label1
             // 
-            this.btnSignIn.Location = new System.Drawing.Point(255, 182);
-            this.btnSignIn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnSignIn.Name = "btnSignIn";
-            this.btnSignIn.Size = new System.Drawing.Size(88, 27);
-            this.btnSignIn.TabIndex = 4;
-            this.btnSignIn.Text = "đăng nhập";
-            this.btnSignIn.UseVisualStyleBackColor = true;
-            this.btnSignIn.Click += new System.EventHandler(this.btnSignIn_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Lucida Calligraphy", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(12, 165);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(260, 43);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "MedicalHere";
             // 
-            // btnSignUp
+            // customButton2
             // 
-            this.btnSignUp.Location = new System.Drawing.Point(366, 182);
-            this.btnSignUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnSignUp.Name = "btnSignUp";
-            this.btnSignUp.Size = new System.Drawing.Size(88, 27);
-            this.btnSignUp.TabIndex = 5;
-            this.btnSignUp.Text = "đăng kí";
-            this.btnSignUp.UseVisualStyleBackColor = true;
-            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
+            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.customButton2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.customButton2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.customButton2.BorderRadius = 14;
+            this.customButton2.BorderSize = 0;
+            this.customButton2.FlatAppearance.BorderSize = 0;
+            this.customButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customButton2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.customButton2.ForeColor = System.Drawing.Color.White;
+            this.customButton2.Location = new System.Drawing.Point(25, 419);
+            this.customButton2.Name = "customButton2";
+            this.customButton2.Size = new System.Drawing.Size(211, 54);
+            this.customButton2.TabIndex = 8;
+            this.customButton2.Text = "Sign In";
+            this.customButton2.TextColor = System.Drawing.Color.White;
+            this.customButton2.UseVisualStyleBackColor = false;
             // 
-            // btnExit
+            // linkLabel1
             // 
-            this.btnExit.Location = new System.Drawing.Point(416, 14);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(88, 27);
-            this.btnExit.TabIndex = 6;
-            this.btnExit.Text = "thoát";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkColor = System.Drawing.Color.Black;
+            this.linkLabel1.Location = new System.Drawing.Point(25, 352);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(159, 20);
+            this.linkLabel1.TabIndex = 7;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Forget your password?";
+            // 
+            // customInput2
+            // 
+            this.customInput2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.customInput2.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.customInput2.BorderRadius = 8;
+            this.customInput2.BorderSize = 2;
+            this.customInput2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.customInput2.Location = new System.Drawing.Point(25, 300);
+            this.customInput2.Margin = new System.Windows.Forms.Padding(4);
+            this.customInput2.Multiline = false;
+            this.customInput2.Name = "customInput2";
+            this.customInput2.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.customInput2.PasswordChar = false;
+            this.customInput2.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.customInput2.PlaceholderText = "8+ Characters";
+            this.customInput2.Size = new System.Drawing.Size(534, 36);
+            this.customInput2.TabIndex = 6;
+            this.customInput2.Texts = "";
+            this.customInput2.UnderlinedStyle = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(25, 263);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(88, 22);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Password";
+            // 
+            // customInput1
+            // 
+            this.customInput1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.customInput1.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.customInput1.BorderRadius = 8;
+            this.customInput1.BorderSize = 2;
+            this.customInput1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.customInput1.Location = new System.Drawing.Point(25, 202);
+            this.customInput1.Margin = new System.Windows.Forms.Padding(4);
+            this.customInput1.Multiline = false;
+            this.customInput1.Name = "customInput1";
+            this.customInput1.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.customInput1.PasswordChar = false;
+            this.customInput1.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.customInput1.PlaceholderText = "email@gmail.com";
+            this.customInput1.Size = new System.Drawing.Size(534, 36);
+            this.customInput1.TabIndex = 4;
+            this.customInput1.Texts = "";
+            this.customInput1.UnderlinedStyle = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(25, 165);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 22);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Email";
+            this.label4.Click += new System.EventHandler(this.label4_Click_1);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(98, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(428, 45);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Sign In to MedicalHere!";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // customButton1
+            // 
+            this.customButton1.BackColor = System.Drawing.Color.White;
+            this.customButton1.BackgroundColor = System.Drawing.Color.White;
+            this.customButton1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.customButton1.BorderRadius = 14;
+            this.customButton1.BorderSize = 1;
+            this.customButton1.FlatAppearance.BorderSize = 0;
+            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.customButton1.Location = new System.Drawing.Point(456, 18);
+            this.customButton1.Name = "customButton1";
+            this.customButton1.Size = new System.Drawing.Size(103, 38);
+            this.customButton1.TabIndex = 1;
+            this.customButton1.Text = "Sign Up";
+            this.customButton1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.customButton1.UseVisualStyleBackColor = false;
+            this.customButton1.Click += new System.EventHandler(this.customButton1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(337, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 20);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "I\'m a new user";
             // 
             // SignIn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 280);
-            this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.btnSignUp);
-            this.Controls.Add(this.btnSignIn);
-            this.Controls.Add(this.txbPassword);
-            this.Controls.Add(this.txbEmail);
-            this.Controls.Add(this.lbPassword);
-            this.Controls.Add(this.lbEmail);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.ClientSize = new System.Drawing.Size(882, 553);
+            this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(900, 600);
+            this.MinimumSize = new System.Drawing.Size(900, 600);
             this.Name = "SignIn";
             this.Text = "Đăng nhập";
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lbEmail;
-        private System.Windows.Forms.Label lbPassword;
-        private System.Windows.Forms.TextBox txbEmail;
-        private System.Windows.Forms.TextBox txbPassword;
-        private System.Windows.Forms.Button btnSignIn;
-        private System.Windows.Forms.Button btnSignUp;
-        private System.Windows.Forms.Button btnExit;
+        private SplitContainer splitContainer1;
+        private PictureBox pictureBox1;
+        private Label label1;
+        private Label label2;
+        private Custom.CustomButton.CustomButton customButton1;
+        private Label label3;
+        private Label label4;
+        private Custom.CustomInput.CustomInput customInput1;
+        private Custom.CustomButton.CustomButton customButton2;
+        private LinkLabel linkLabel1;
+        private Custom.CustomInput.CustomInput customInput2;
+        private Label label5;
     }
 }

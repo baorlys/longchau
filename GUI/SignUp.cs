@@ -22,22 +22,27 @@ namespace GUI
             InitializeComponent();
         }
 
-        private void btnSignUp_Click(object sender, EventArgs e)
+        //private void btnSignUp_Click(object sender, EventArgs e)
+        //{
+        //    user.Email = txbEmail.Text;
+        //    user.Name = txbName.Text;
+        //    user.Phone = txbPhone.Text;
+        //    user.Password = txbPassword.Text;
+        //    string confirmPass = txbConfirm.Text;
+        //    MessageHandler etUser = userBLL.checkSignUp(user,confirmPass);
+        //    if (etUser.getStatus() == false)
+        //    {
+        //        MessageBox.Show(etUser.getMessage());
+        //        return;
+        //    }
+        //    User userLogin = UserDAL.Instance.getUserByEmail(txbEmail.Text);
+        //    Customer customer = new Customer(userLogin);
+        //    customer.ShowDialog();
+        //}
+
+        private void label5_Click(object sender, EventArgs e)
         {
-            user.Email = txbEmail.Text;
-            user.Name = txbName.Text;
-            user.Phone = txbPhone.Text;
-            user.Password = txbPassword.Text;
-            string confirmPass = txbConfirm.Text;
-            MessageHandler etUser = userBLL.checkSignUp(user,confirmPass);
-            if (etUser.getStatus() == false)
-            {
-                MessageBox.Show(etUser.getMessage());
-                return;
-            }
-            User userLogin = UserDAL.Instance.getUserByEmail(txbEmail.Text);
-            Customer customer = new Customer(userLogin);
-            customer.ShowDialog();
+
         }
     }
 }

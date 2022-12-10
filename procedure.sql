@@ -143,7 +143,7 @@ GO
 
 CREATE PROCEDURE getRevenue(@from date,@to date)
 AS
-SELECT SUM(totalPrice) FROM transactions WHERE CAST(transDate AS DATE) BETWEEN @from AND @to
+SELECT * FROM transactions WHERE CAST(transDate AS DATE) BETWEEN @from AND @to
 GO
 
 
@@ -258,7 +258,6 @@ BEGIN
 END
 
 
-
 --Create transaction
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createTransaction')
 	DROP PROCEDURE createTransaction
@@ -305,7 +304,7 @@ GO
 CREATE PROCEDURE deleteTrans(@transId int)
 AS
 BEGIN
-	UPDATE medicine SET quantity = quantity + transactionDetail.quantity FROM transactionDetail WHERE
+	UPDATE medicine SET medicine.quantity = medicine.quantity + transactionDetail.quantity FROM transactionDetail WHERE
 	transactionDetail.transId = @transId
 	DELETE FROM transactionDetail WHERE transId = @transId
 	DELETE FROM transactions WHERE transId = @transId
