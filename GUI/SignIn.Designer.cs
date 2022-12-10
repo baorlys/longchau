@@ -64,7 +64,7 @@
             this.txbEmail.Name = "txbEmail";
             this.txbEmail.Size = new System.Drawing.Size(168, 23);
             this.txbEmail.TabIndex = 2;
-            this.txbEmail.Text = "admin@gmail.com";
+            this.txbEmail.Text = "bao@gmail.com";
             // 
             // txbPassword
             // 
@@ -73,7 +73,7 @@
             this.txbPassword.Name = "txbPassword";
             this.txbPassword.Size = new System.Drawing.Size(168, 23);
             this.txbPassword.TabIndex = 3;
-            this.txbPassword.Text = "123456";
+            this.txbPassword.Text = "123456Bao";
             this.txbPassword.UseSystemPasswordChar = true;
             // 
             // btnSignIn

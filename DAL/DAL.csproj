@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MD5Hash.cs" />
+    <Compile Include="MedicineDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RevenueDAL.cs" />
     <Compile Include="TransactionDAL.cs" />

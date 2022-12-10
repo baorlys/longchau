@@ -30,6 +30,13 @@ namespace DAL
             return list;
         }
 
+        public DataTable loadRevenueToDt(DateTime from, DateTime to)
+        {
+            string query = "exec dbo.getRevenue @from , @to";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { from, to });
+            return data;
+        }
+
         public int countNumberTrans(List<Revenue> list) { 
             return list.Count();
         }

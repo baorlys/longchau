@@ -949,8 +949,8 @@
             // 
             // tcAdmin
             // 
-            this.tcAdmin.Controls.Add(this.tabPage2);
             this.tcAdmin.Controls.Add(this.tabPage3);
+            this.tcAdmin.Controls.Add(this.tabPage2);
             this.tcAdmin.Controls.Add(this.tabPage4);
             this.tcAdmin.Controls.Add(this.tabPage5);
             this.tcAdmin.Location = new System.Drawing.Point(12, 27);
