@@ -267,11 +267,11 @@ BEGIN
 END
 GO
 
--- DECLARE @medicineHandler AS medicineHandler
--- INSERT INTO @medicineHandler VALUES('MDC00001',2)
--- INSERT INTO @medicineHandler VALUES('MDC00002',3)
--- exec createTransaction @medicineHandler,1,'2022-12-7',100000
--- GO   
+DECLARE @medicineHandler AS medicineHandler
+INSERT INTO @medicineHandler VALUES('MDC00001',2)
+INSERT INTO @medicineHandler VALUES('MDC00002',3)
+exec createTransaction @medicineHandler,1,'2022-12-7',100000
+GO
 
 
 --Update quantity mdc
