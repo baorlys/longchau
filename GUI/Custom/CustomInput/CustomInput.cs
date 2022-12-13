@@ -279,7 +279,7 @@ namespace GUI.Custom.CustomInput
                     textBox1.UseSystemPasswordChar = false;
             }
         }
-        private void RemovePlaceholder()
+        public void RemovePlaceholder()
         {
             if (isPlaceholder && placeholderText != "")
             {
