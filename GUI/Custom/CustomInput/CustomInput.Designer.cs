@@ -39,6 +39,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(230, 22);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // CustomInput
@@ -50,6 +51,7 @@
             this.Name = "CustomInput";
             this.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
             this.Size = new System.Drawing.Size(250, 36);
+            this.Enter += new System.EventHandler(this.textBox1_Enter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

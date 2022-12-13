@@ -148,8 +148,6 @@
             this.txbPassword.TabIndex = 6;
             this.txbPassword.Texts = "";
             this.txbPassword.UnderlinedStyle = false;
-            this.txbPassword._TextChanged += new System.EventHandler(this.txbPassword__TextChanged);
-            this.txbPassword.Click += new System.EventHandler(this.txbPassword_Click);
             // 
             // label5
             // 
@@ -182,8 +180,6 @@
             this.txbEmail.TabIndex = 4;
             this.txbEmail.Texts = "";
             this.txbEmail.UnderlinedStyle = false;
-            this.txbEmail._TextChanged += new System.EventHandler(this.txbEmail__TextChanged);
-            this.txbEmail.Click += new System.EventHandler(this.txbEmail_Click);
             // 
             // label4
             // 

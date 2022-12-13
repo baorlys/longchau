@@ -337,8 +337,8 @@ namespace GUI.Custom.CustomInput
         {
             if (_TextChanged != null)
             {
-                _TextChanged.Invoke(sender, e);
                 RemovePlaceholder();
+                _TextChanged.Invoke(sender, e);
             }
         }
         private void textBox1_Click(object sender, EventArgs e)
@@ -362,8 +362,8 @@ namespace GUI.Custom.CustomInput
         private void textBox1_Enter(object sender, EventArgs e)
         {
             isFocused = true;
-            this.Invalidate();
             RemovePlaceholder();
+            this.Invalidate();
         }
         private void textBox1_Leave(object sender, EventArgs e)
         {

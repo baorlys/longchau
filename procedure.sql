@@ -106,7 +106,7 @@ BEGIN
 IF @day IS NULL
 	BEGIN
 	IF @state = 2
-		SELECT * FROM transactions,expressBrand WHERE transactions.brandId = expressBrand.brandId
+		SELECT *  FROM transactions,expressBrand WHERE transactions.brandId = expressBrand.brandId
 	ELSE
 		SELECT * FROM transactions,expressBrand WHERE state = @state AND transactions.brandId = expressBrand.brandId
 	END
@@ -169,18 +169,21 @@ AS
 insert into users(email,name,phone,password) values(@email,@name,@phone,@password)
 GO
 
+exec signUp 'ngxbinh47@gmail.com',N'Nguyễn Xuân Bình','0909043076', 'e10adc3949ba59abbe56e057f20f883e'
+GO
+
 --Create request import
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createRequestImport')
 	DROP PROCEDURE createRequestImport
 GO
 
-CREATE PROCEDURE createRequestImport(@mdcID char(10))
+CREATE PROCEDURE createRequestImport(@mdcID char(10),@quantity int)
 AS
 BEGIN
 	DECLARE @importId int
-	INSERT INTO import(mdcID) VALUES(@mdcID)
+	INSERT INTO import(mdcID,quantity) VALUES(@mdcID,@quantity)
 	SET @importId = SCOPE_IDENTITY()
-	INSERT INTO storage(importId) VALUES(@importId)
+	INSERT INTO storage(importId,quantity) VALUES(@importId,@quantity)
 	RETURN 1
 END
 GO
@@ -195,7 +198,7 @@ AS
 BEGIN
 	UPDATE storage SET status = 1 WHERE importId = @importId
 	UPDATE import SET status = 1 WHERE importId = @importId
-	INSERT INTO importDetail(importId,quantity,dateExpire) SELECT importId,quantity,dateExpire FROM storage WHERE importId = @importId
+	UPDATE import SET import.dateExpire = SELECT dateExpire FROM storage WHERE importId = @importId AND storage.importID = import.importID
 	RETURN 1
 END
 GO
@@ -213,7 +216,7 @@ AS
 BEGIN
 	UPDATE import SET status = 2 WHERE importId = @importId
 	UPDATE Storage SET status = 2 WHERE importId = @importId
-	UPDATE medicine SET quantity = importDetail.quantity, dateExpire = CAST(importDetail.dateExpire AS DATE) FROM importDetail,import WHERE import.mdcId = medicine.mdcId AND import.importID=@importId
+	UPDATE medicine SET quantity = import.quantity, dateExpire = CAST(import.dateExpire AS DATE) FROM import WHERE import.mdcId = medicine.mdcId AND import.importID=@importId
 	RETURN 1
 END
 GO
@@ -230,9 +233,9 @@ CREATE PROCEDURE getRequestImport(@status int)
 AS
 BEGIN
 	IF @status = 3
-		SELECT * FROM import
+		SELECT * FROM import,medicine WHERE import.mdcId = medicine.mdcId
 	ELSE
-		SELECT * FROM import WHERE status = @status
+		SELECT * FROM import,medicine WHERE status = @status AND import.mdcId = medicine.mdcId
 END
 
 --Get storage by status
@@ -255,10 +258,10 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createTransaction')
 	DROP PROCEDURE createTransaction
 GO
 
-CREATE PROCEDURE createTransaction(@medicineHandler medicineHandler READONLY,@userId int,@transDate datetime,@totalPrice int)
+CREATE PROCEDURE createTransaction(@medicineHandler medicineHandler READONLY,@userId int,@transDate datetime,@totalPrice int,@brandId int)
 AS
 BEGIN
-	INSERT INTO transactions(userId,transDate,totalPrice) VALUES(@userId,@transDate,@totalPrice)
+	INSERT INTO transactions(userId,transDate,totalPrice,brandId) VALUES(@userId,@transDate,@totalPrice,@brandId)
 	DECLARE @transId int
 	SET @transId = SCOPE_IDENTITY()
 	INSERT INTO transactionDetail(transId,mdcId,quantity) SELECT @transId,mdcId,quantity FROM @medicineHandler
@@ -270,7 +273,7 @@ GO
 DECLARE @medicineHandler AS medicineHandler
 INSERT INTO @medicineHandler VALUES('MDC00001',2)
 INSERT INTO @medicineHandler VALUES('MDC00002',3)
-exec createTransaction @medicineHandler,1,'2022-12-7',100000
+exec createTransaction @medicineHandler,1,'2022-12-7',100000,1
 GO
 
 

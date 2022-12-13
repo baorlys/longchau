@@ -81,25 +81,5 @@ namespace GUI
         {
 
         }
-
-        private void txbEmail__TextChanged(object sender, EventArgs e)
-        {
-            txbEmail.RemovePlaceholder();
-        }
-
-        private void txbEmail_Click(object sender, EventArgs e)
-        {
-            txbEmail.RemovePlaceholder();
-        }
-
-        private void txbPassword_Click(object sender, EventArgs e)
-        {
-            txbPassword.RemovePlaceholder();
-        }
-
-        private void txbPassword__TextChanged(object sender, EventArgs e)
-        {
-            txbPassword.RemovePlaceholder();
-        }
     }
 }

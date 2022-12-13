@@ -87,15 +87,10 @@ CREATE TABLE import(
     [importId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
     [requestDate] datetime DEFAULT GETDATE(),
     [mdcId] varchar(10)  NOT NULL,
+    [quantity] int DEFAULT 0 NOT NULL,
+    [dateExpire] date NOT NULL DEFAULT '2022-01-01',
     [status] int DEFAULT 0 NOT NULL,
     FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]) ON DELETE CASCADE
-)  ;
-
-CREATE TABLE importDetail(
-    [importId] int NOT NULL,
-    [quantity] int DEFAULT 0 NOT NULL,
-    [dateExpire] date NOT NULL,
-    FOREIGN KEY ([importId]) REFERENCES import ([importId]) ON DELETE CASCADE
 )  ;
 
 CREATE TABLE storage(
