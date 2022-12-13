@@ -23,35 +23,35 @@ namespace GUI
             InitializeComponent();
         }
 
-        private void btnSignIn_Click(object sender, EventArgs e)
-        {
-            user.Email = txbEmail.Texts;
-            user.Password = txbPassword.Texts;
-            string message = userBLL.checkLogin(user);
-            switch (message)
-            {
-                case "required email":
-                    MessageBox.Show("Vui lòng nhập email");
-                    return;
-                case "required password":
-                    MessageBox.Show("Vui lòng nhập mật khẩu");
-                    return;
-                case "invalid email/pass":
-                    MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
-                    return;
-            }
-            User userLogin = UserDAL.Instance.getUserByEmail(txbEmail.Texts);
-            this.Hide();
-            if (userLogin.RoleId == 0)
-            {
-                Admin admin = new Admin(userLogin);
-                admin.ShowDialog();
-            }
-            else
-            {
-                Customer customer = new Customer(userLogin);
-                customer.ShowDialog();
-            }
+        //private void btnSignIn_Click(object sender, EventArgs e)
+        //{
+        //    user.Email = txbEmail.Text;
+        //    user.Password = txbPassword.Text;
+        //    string message = userBLL.checkLogin(user);
+        //    switch (message)
+        //    {
+        //        case "required email":
+        //            MessageBox.Show("Vui lòng nhập email");
+        //            return;
+        //        case "required password":
+        //            MessageBox.Show("Vui lòng nhập mật khẩu");
+        //            return;
+        //        case "invalid email/pass":
+        //            MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
+        //            return;
+        //    }
+        //    User userLogin = UserDAL.Instance.getUserByEmail(txbEmail.Text);
+        //    this.Hide();
+        //    if(userLogin.RoleId == 0)
+        //    {
+        //        Admin admin = new Admin(userLogin);
+        //        admin.ShowDialog();
+        //    }
+        //    else
+        //    {
+        //        Customer customer = new Customer(userLogin);
+        //        customer.ShowDialog();
+        //    }
 
         }
 

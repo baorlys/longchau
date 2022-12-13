@@ -132,5 +132,15 @@ namespace GUI
             UserInfo userInfo = new UserInfo(userLogin);
             userInfo.ShowDialog();
         }
+
+        private void toolStripComboBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nmPrice_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
