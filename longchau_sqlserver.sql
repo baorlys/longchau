@@ -27,7 +27,12 @@ CREATE TABLE expressBrand(
     [brandName] nvarchar(255) NOT NULL,
     [nationName] nvarchar(255) DEFAULT NULL
 )  ;
-INSERT INTO expressBrand VALUES('','');
+INSERT INTO expressBrand VALUES
+('',''),
+('Grab','VietNam'),
+('Gojek','VietNam'),
+('Be','VietNam'),
+('GHTK','VietNam');
 
 CREATE TABLE users (
     [userId] int NOT NULL identity(1,1) PRIMARY KEY,
@@ -52,17 +57,33 @@ CREATE TABLE userManager(
     FOREIGN KEY ([email]) REFERENCES users ([email])
 )  ;
 
+CREATE TABLE category(
+    [categoryId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    [categoryName] nvarchar(255) NOT NULL
+)  ;
+
+INSERT INTO category VALUES
+(N'Hệ tin mạch & tạo máu'),
+(N'Hệ tiêu hóa và gan mật'), 
+(N'Hệ thần kinh trung ương'), 
+(N'Hệ hô hấp'),
+(N'Thuốc kháng sinh'), 
+(N'Dị ứng và hệ miễn dịch'); 
+
 CREATE TABLE medicine(
     [mdcId] varchar(10) NOT NULL PRIMARY KEY,
     [name] nvarchar(255),
-    [strength] nvarchar(255),
-    [dosageForm] nvarchar(255),
-    [price] int DEFAULT 0,
-    [startDate] date NOT NULL,
+    [type] nvarchar(255),
+    [categoryId] int NOT NULL,
     [dateExpire] date NOT NULL,
     [labelerName] nvarchar(255),
-    [quantity] int DEFAULT 0
+    [description] nvarchar(max) DEFAULT NULL,
+    [price] int DEFAULT 0,
+    [quantity] int DEFAULT 0,
+    FOREIGN KEY ([categoryId]) REFERENCES category ([categoryId])
 )  ;
+
+
 
 CREATE TABLE import(
     [importId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -105,6 +126,7 @@ CREATE TABLE transactionDetail(
     [transId] INT NOT NULL,
     [mdcID] varchar(10)  NOT NULL,
     [quantity] int default 0 NOT NULL,
+	[totalPrice] int default 0 NOT NULL,
     FOREIGN KEY ([mdcId]) REFERENCES medicine ([mdcId]) ON DELETE CASCADE,
     FOREIGN KEY ([transId]) REFERENCES transactions ([transId]) ON DELETE CASCADE
 )  ;
@@ -131,30 +153,38 @@ CREATE TABLE certificateDetail(
 )  ;
 GO
 
-INSERT INTO MEDICINE VALUES('12496-0100','BUPRENORPHINE','100 mg/1','SOLUTION','20000','20180226','20231231','Indivior Inc.','12')
-INSERT INTO MEDICINE VALUES('0009-0094','ALPRAZOLAM','2 mg/1','TABLET','34000','19811016','20231231','Pharmacia & Upjohn Company LLC','3')
-INSERT INTO MEDICINE VALUES('55513-137','APREMILAST','30 mg/1','TABLET, FILM COATED','97000','20200226','20231231','Amgen Inc','12')
-INSERT INTO MEDICINE VALUES('63187-037','PREDNISONE','10 mg/1','TABLET','161000','20020712','20221231','Proficient Rx LP','18')
-INSERT INTO MEDICINE VALUES('43063-869','CIPROFLOXACIN HYDROCHLORIDE','500 mg/1','TABLET','12000','20040910','20231231','PD-Rx Pharmaceuticals, Inc.','12')
-INSERT INTO MEDICINE VALUES('16714-174','ATORVASTATIN CALCIUM PROPYLENE GLYCOL SOLVATE','20 mg/1','TABLET, FILM COATED','199000','20210801','20221231','NORTHSTAR RX LLC','18')
-INSERT INTO MEDICINE VALUES('0456-2010','ESCITALOPRAM OXALATE','10 mg/1','TABLET, FILM COATED','181000','20020814','20231231','Allergan, Inc.','3')
-INSERT INTO MEDICINE VALUES('0173-0722','BUPROPION HYDROCHLORIDE','200 mg/1','TABLET, FILM COATED','134000','20020625','20231231','GlaxoSmithKline LLC','6')
-INSERT INTO MEDICINE VALUES('53002-3112','NAPROXEN','500 mg/1','TABLET','37000','20160705','20221231','RPK Pharmaceuticals, Inc.','4')
-INSERT INTO MEDICINE VALUES('50090-4364','CANAGLIFLOZIN','300 mg/1','TABLET, FILM COATED','114000','20130329','20221231','A-S Medication Solutions','20')
-INSERT INTO MEDICINE VALUES('64764-300','VEDOLIZUMAB','300 mg/5mL','INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION','116000','20140520','20231231','Takeda Pharmaceuticals America, Inc.','19')
-INSERT INTO MEDICINE VALUES('71205-569','TRAMADOL HYDROCHLORIDE','300 mg/1','TABLET, EXTENDED RELEASE','112000','20140819','20231231','Proficient Rx LP','13')
-INSERT INTO MEDICINE VALUES('0169-4307','SEMAGLUTIDE','7 mg/1','TABLET','45000','20190920','20231231','Novo Nordisk','5')
-INSERT INTO MEDICINE VALUES('0006-0221','SITAGLIPTIN PHOSPHATE','25 mg/1','TABLET, FILM COATED','82000','20061016','20231231','Merck Sharp & Dohme LLC','9')
-INSERT INTO MEDICINE VALUES('50090-3481','DAPAGLIFLOZIN PROPANEDIOL','10 mg/1','TABLET, FILM COATED','22000','20080114','20221231','A-S Medication Solutions','10')
-INSERT INTO MEDICINE VALUES('0069-4220','SILDENAFIL CITRATE','100 mg/1','TABLET, FILM COATED','118000','19980327','20231231','Pfizer Laboratories Div Pfizer Inc','2')
-INSERT INTO MEDICINE VALUES('0904-0428','DOXYCYCLINE HYCLATE','100 mg/1','CAPSULE','119000','20080805','20231231','Major Pharmaceuticals','15')
-INSERT INTO MEDICINE VALUES('0024-5910','SARILUMAB','200 mg/1.14mL','INJECTION, SOLUTION','58000','20170522','20221231','sanofi-aventis U.S. LLC','12')
-INSERT INTO MEDICINE VALUES('63739-777','HYDROXYCHLOROQUINE SULFATE','200 mg/1','TABLET, FILM COATED','60000','20080103','20221231','McKesson Corporation dba SKY Packaging','5')
-INSERT INTO MEDICINE VALUES('54123-114','BUPRENORPHINE HYDROCHLORIDE','11.4 mg/1','TABLET, ORALLY DISINTEGRATING','155000','20141211','20231231','Orexo US, Inc.','16')
-INSERT INTO MEDICINE VALUES('0078-0607','FINGOLIMOD HYDROCHLORIDE','.5 mg/1','CAPSULE','44000','20100921','20231231','Novartis Pharmaceuticals Corporation','15')
-INSERT INTO MEDICINE VALUES('68071-5083','BENZONATATE','100 mg/1','CAPSULE','64000','20181221','20231231','NuCare Pharmaceuticals,Inc.','0')
-INSERT INTO MEDICINE VALUES('73317-4258','METFORMIN HYDROCHLORIDE','1000 mg/1','TABLET, FILM COATED, EXTENDED RELEASE','140000','20210416','20221231','SLV PHARMACEUTICALS LLC DBA AUM PHARMACEUTICALS','3')
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateToalPriceTransDetail')
+	DROP TRIGGER updateToalPriceTransDetail
 GO
 
+CREATE TRIGGER updateToalPriceTransDetail
+ON transactionDetail
+AFTER INSERT
+AS
+BEGIN
+    UPDATE transactionDetail
+    SET transactionDetail.totalPrice = transactionDetail.quantity * (SELECT price FROM medicine WHERE mdcId = transactionDetail.mdcId)
+    FROM inserted JOIN transactionDetail ON inserted.transId = transactionDetail.transId
+END
+GO
 
-
+INSERT INTO medicine VALUES
+('MDC00001','Telmisartan',N'Hộp 3 vỉ x 10 viên', 1, '2022-12-31', N'AN THIÊN',N'Thuốc Telmisartan được chỉ định trong điều trị tăng huyết áp ở người lớn. Phòng ngừa bệnh tim mạch: Giảm nguy cơ mắc bệnh tim mạch ở người lớn: Bệnh nhân có bệnh lý tim mạch có nguy cơ huyết khối động mạch như tiền sử bệnh mạch vành, đột quỵ, bệnh động mạch ngoại biên. Bệnh nhân đái tháo đường type 2 có tổn thương cơ quan đích.', 100000,0,'/img/MDC00001'),
+('MDC00002','Clopidogrel',N'Hộp 3 vỉ x 10 viên', 1, '2022-12-31', N'USP',N'Thuốc Clopidogrel 75 Mv được chỉ định dùng trong các trường hợp sau:Làm giảm hay dự phòng các biến cố huyết khối do xơ vữa động mạch (nhồi máu cơ tim, đột quỵ, tai biến mạch máu não) ở bệnh nhân có tiền sử xơ vữa động mạch biểu hiện bởi nhồi máu cơ tim (trong thời gian vài ngày đến dưới 35 ngày), đột quỵ, thiếu máu cục bộ (từ 7 ngày đến dưới 6 tháng) hay bệnh động mạch ngoại biên đã được xác định.Dùng kết hợp với Aspirin ở bệnh nhân bị hội chứng đau thắt ngực không ổn định hay nhồi máu cơ tim không có sóng Q.', 100000,0,'/img/MDC00002'),
+('MDC00003','Rotacor',N'Hộp 3 vỉ x 10 viên', 1, '2022-12-31', N'LEK',N'Atorvastatin được chỉ định hỗ trợ cho chế độ ăn kiêng trong điều trị cho các bệnh nhân bị tăng cholesterol toàn phần (C-toàn phần), cholesterol lipoprotein tỉ trọng thấp (LDL-C), apolipoprotein B (apo B) và triglycerid (TG) và giúp làm tăng cholesterol lipoprotein tỉ trọng cao (HDL-C) ở các bệnh nhân tăng cholesterol máu tiên phát (tăng cholesterol máu có tính gia đình dị hợp tử và không có tính gia đình), tăng lipid máu phối hợp (hỗn hợp) (nhóm lla và llb theo phân loại của Fredrickson), tăng triglycerid máu (nhóm IV, theo phân loại của Fredrickson) và ở các bệnh nhân có rối loạn betalipoprotein máu (nhóm III theo phân loại Fredrickson) mà không có đáp ứng đầy đủ với chế độ ăn.Atorvastatin cũng được chỉ định để làm giảm C- toàn phần và LDL-C ở các bệnh nhân có tăng cholesterol máu', 100000,0,'/img/MDC00003'), 
+('MDC00004',N'Bổ Gan Trường Phúc', N'Hộp 3 vỉ x 10 viên', 2, '2022-12-31', N' CÔNG TY TNHH DƯỢC THẢO HOÀNG THÀNH',N' Bổ Gan Trường Phúc chỉ định điều trị trong các trường hợp sau:Hỗ trợ bổ gan, giải độc, kiện tỳ, tăng cường khí huyết.Giải độc gan, chống dị ứng, mề đay, lở ngửa, rôm sảy, mụn nhọt.Hỗ trợ điều trị trong bệnh viêm gan với các triệu chứng mệt mỏi, vàng da, chán ăn khó tiêu, táo bón, đau tức vùng gan, suy giảm chức năng gan do dùng nhiều bia rượu, thuốc hóa dược.', 100000,0,'/img/MDC00004'),
+('MDC00005',N'Bài Thạch Trường Phúc', N'Hộp 3 vỉ x 10 viên', 2, '2022-12-31', N'CÔNG TY TNHH DƯỢC THẢO HOÀNG THÀNH',N'Bài Thạch Trường Phúc chỉ định điều trị trong các trường hợp sau:Phòng và hỗ trợ điều trị sỏi thận, sỏi đường tiết niệu, sỏi bàng quang, sỏi mật, tiểu buốt, tiểu rắt, tiểu ra máu.', 100000,0,'/img/MDC00005'),
+('MDC00006',N'Omeprazol', N'Hộp 3 vỉ x 10 viên', 2, '2022-12-31', N'TVP',N'Omeprazol là một benzimidazol đã gắn các nhóm thế, có cấu trúc và tác dụng tương tự như pantoprazol, lansoprazol, esomeprazol.Omeprazol ức chế sự bài tiết acid của dạ dày do ức chế hệ enzym hydro/kali adenosin triphosphatase (H+/K+ ATPase) còn gọi là bơm proton ở tế bào thành của dạ dày. Omeprazol không có tác dụng lên thụ thể (receptor) acetylcholin hay thụ thể histamin. Uống hàng ngày một liều duy nhất 20 mg omeprazol tạo được sự ức chế tiết acid dạ dày mạnh và hiệu quả. Tác dụng tối đa đạt được sau 4 ngày điều trị. Ở bệnh nhân loét dạ dày, có thể duy trì việc giảm 80% acid dịch vị trong 24 giờ.Omeprazol có thể kìm hãm được vi khuẩn Helicobacter pylori ở người bệnh loét tá tràng và/hoặc viêm thực quản trào ngược bị nhiễm vi khuẩn này. Phối hợp omeprazol với một số thuốc kháng khuẩn (ví dụ: Clarithromycin, amoxicilin) có thể tiệt trừ H.pylori kèm theo liền ổ loét và thuyên giảm bệnh lâu dài.', 100000,0,'/img/MDC00006'),
+('MDC00007',N'Celecoxib', N'Hộp 3 vỉ x 10 viên', 3, '2022-12-31', N'USP',N'Thuốc Celecoxib 200-Hv được chỉ định dùng trong các trường hợp sau:Điều trị triệu chứng của thoái hóa khớp (OA) và viêm khớp dạng thấp (RA).Giảm nhẹ các dấu hiệu và triệu chứng của viêm cột sống dính khớp.Kiểm soát đau cấp tính. Điều trị thống kinh nguyên phát.', 100000,0,'/img/MDC00007'),
+('MDC00008',N'Bivinadol', N'Hộp 4 vỉ x 4 viên', 3, '2022-12-31', N'BRV',N'Viên sủi Bivinadol chỉ định điều trị trong các trường hợp sau:Điều trị các chứng đau cấp tính và mạn tính như: Đau đầu, đau răng, đau bụng kinh, đau thần kinh, đau khớp và đau cơ.Hạ sốt ở bệnh nhân bị cảm hay những bệnh có liên quan tới sốt.', 100000,0,'/img/MDC00008'),
+('MDC00009',N'Actadol', N'Hộp 10 vỉ x 10 viên', 3, '2022-12-31', N'MEDIPHARCO',N'Paracetamol được dùng rộng rãi trong điều trị các chứng đau và sốt từ nhẹ đến vừa. Đau Paracetamol được dùng giảm đau tạm thời trong điều trị chứng đau nhẹ và vừa: Đau đầu, đau răng, đau bụng kinh, đau cơ... Thuốc có hiệu quả nhất là làm giảm đau cường độ thấp có nguồn gốc không phải nội tạng.Paracetamol không có tác dụng trị thấp khớp.Paracetamol là thuốc thay thế salicylat (được ưa thích ở người bệnh chống chỉ định hoặc không dung nạp salicylat) để giảm đau nhẹ hoặc hạ sốt.Sốt Paracetamol thường được dùng để giảm thân nhiệt ở người bệnh sốt, khi sốt có thể có hại hoặc khi hạ sốt, người bệnh sẽ dễ chịu hơn. Tuy vậy, liệu pháp hạ sốt nói chung không đặc hiệu, không ảnh hưởng đến tiến trình của bệnh cơ bản, và có thể che lấp tình trạng bệnh của người bệnh.', 100000,0,'/img/MDC00009'),
+('MDC00010',N'Midorhum OPV', N'Hộp 10 vỉ x 10 viên', 4, '2022-12-31', N'CÔNG TY CỔ PHẦN DƯỢC PHẨM OPV',N'Thuốc Midorhum được chỉ định dùng trong các trường hợp sau:Ðiều trị các triệu chứng trong cảm lạnh và cảm cúm như đau nhức nhẹ, nhức đầu, sốt, ho, sổ mũi, hắt hơi, mẩn ngứa, chảy nước mắt.', 100000,0,'/img/MDC00010'),
+('MDC00011',N'Neo-Corclion F TV.pharm', N'Hộp 2 vỉ x 10 viên', 4, '2022-12-31', N'CÔNG TY CỔ PHẦN DƯỢC PHẨM TV.PHARM',N'Thuốc Neo - Corclion F được chỉ định dùng trong các trường hợp sau:Điều trị giảm ho trong các trường hợp ho gió, ho khan.', 100000,0,'/img/MDC00011'),
+('MDC00012',N'Cufo Lemon', N'Hộp 2 vỉ x 12 viên', 4, '2022-12-31', N'UNIQUE',N'Viên Ngậm Cufo Lemon có tác dụng hỗ trợ điều trị triệu chứng trong nhiễm khuẩn miệng và họng.', 100000,0,'/img/MDC00012'),
+('MDC00013',N'Opelomin', N'Hộp 2 vỉ x 2 viên', 5, '2022-12-31', N'OPV',N'Thuốc Opelomin 6 được chỉ định dùng trong các trường hợp sau:Ðiều trị giun chỉ (Onchocerca volvulus).Ðiều trị giun lươn (Strongyloides stercoralis).', 100000,0,'/img/MDC00013'),
+('MDC00014',N'Klavunamox', N'Hộp 3 vỉ x 15 viên', 5, '2022-12-31', N'ATABAY',N'Thuốc Klavunamox 625 mg được chỉ định dùng điều trị nhiễm khuẩn gây nên bởi các chủng nhạy cảm trong các trường hợp cụ thể sau đây:Nhiễm khuẩn bộ máy hô hấp:Nhiễm khuẩn đường hô hấp trên: Viêm xoang, viêm amidan, viêm tai giữa, những nhiễm khuẩn khác ở vùng tai-mũi-họng.Nhiễm khuẩn đường hô hấp dưới: Viêm phế quản cấp và mạn tính, viêm phổi, viêm mủ màng phổi, abces phổi.Nhiễm khuẩn da và mô mềm: Đinh, nhọt, abces, viêm mô tế bào, nhiễm khuẩn vết thương, nhiễm khuẩn trong bụng.Nhiễm khuẩn đường tiết niệu - sinh dục: Viêm bàng quang, viêm thận - bể thận, viêm niệu đạo, nhiễm khuẩn vùng khung chậu, giang mai, lậu.Các nhiễm khuẩn khác: Viêm xương tủy.', 100000,0,'/img/MDC00014'),
+('MDC00015',N'Auclanityl Tipharco', N'Hộp 2 vỉ x 7 viên', 5, '2022-12-31', N'TIPHARCO',N'Điều trị các nhiễm khuẩn do các vi khuẩn nhạy cảm trong các trường hợp:Nhiễm khuẩn nặng đường hô hấp trên: Viêm amidan, viêm xoang, viêm tai giữa đã được điều trị bằng các kháng sinh thông thường nhưng không giảm.Nhiễm khuẩn đường hô hấp dưới bởi các chủng H.influenzae và Branhamella catarrbalis sản sinh beta – lactamase: Viêm phế quản cấp và đợt cấp của viêm phế quản mạn, viêm phổi mắc phải ở cộng đồng.Nhiễm khuẩn nặng đường tiết niệu bởi các chủng E. coli, Klebsiella và Enterobacter sản sinh: Viêm bàng quang, viêm niệu đạo, viêm bể thận.Nhiễm khuẩn da và mô mềm: Mụn nhọt, áp xe, nhiễm khuẩn vết thương.Nhiễm khuẩn xương và khớp: Viêm tủy xương.', 100000,0,'/img/MDC00015'),
+('MDC00016',N'Histalong', N'Hộp 2 vỉ x 10 viên', 6, '2022-12-31', N'DR.REDDY',N'Thuốc Histalong L được chỉ định dùng trong trường hợp sau:Ðiều trị triệu chứng viêm mũi dị ứng (kể cả viêm mũi dị ứng dai dẳng) và mày đay ở người lớn và trẻ em từ 6 tuổi trở lên.', 100000,0,'/img/MDC00016'),
+('MDC00017',N'Fefasdin', N'Hộp 10 vỉ x 10 viên', 6, '2022-12-31', N'KHAPHARCO PHARM. CO.',N'Thuốc FEFASDIN 60 được chỉ định dùng trong các trường hợp sau:Điều trị triệu chứng trong viêm mũi dị ứng theo mùa, mày đay mạn tính vô căn ở người lớn và trẻ em trên 6 tuổi.', 100000,0,'/img/MDC00017'),
+('MDC00018',N'Telfast HD', N'Hộp 1 vỉ x 10 viên', 6, '2022-12-31', N'SANOFI',N'Thuốc Telfast 180mg được chỉ định dùng trong các trường hợp sau:Ðiều trị viêm mũi dị ứng: Telfast HD 180 mg được chỉ định để điều trị viêm mũi dị ứng theo mùa ở người lớn và trẻ em từ 12 tuổi trở lên.Ðiều trị mày đay vô căn mạn tính: Telfast HD 180 mg được chỉ định để điều trị các biểu hiện ngoài da không biến chứng của mày đay vô căn mạn tính ở người lớn và trẻ em từ 12 tuổi trở lên. Thuốc làm giảm ngứa và số lượng dát mày đay một cách đáng kể.', 100000,0,'/img/MDC00018');
+GO

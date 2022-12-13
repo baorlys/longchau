@@ -37,14 +37,12 @@ namespace GUI
         #region Method
         void loadMedicine()
         {
-            string query = "Select * from Medicine";
-            dgvMedicine.DataSource = DataProvider.Instance.ExecuteQuery(query, null);
+            dgvMedicine.DataSource = MedicineDAL.Instance.loadMedicineToDt();
         }
 
         void loadRevenue(DateTime from, DateTime to)
         {
-            string query = "exec dbo.getRevenue @from , @to";
-            dgvRevenue.DataSource = DataProvider.Instance.ExecuteQuery(query, new object[] { from, to });
+            dgvRevenue.DataSource = RevenueDAL.Instance.loadRevenueToDt(from,to);
             RevenueDAL revDAL = RevenueDAL.Instance;
             List<Revenue> listRev = revDAL.loadRevenue(from, to);
             tbCountTrans.Text = revDAL.countNumberTrans(listRev).ToString();

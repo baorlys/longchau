@@ -106,16 +106,16 @@ BEGIN
 IF @day IS NULL
 	BEGIN
 	IF @state = 2
-		SELECT * FROM transactions
+		SELECT * FROM transactions,expressBrand WHERE transactions.brandId = expressBrand.brandId
 	ELSE
-		SELECT * FROM transactions WHERE state = @state
+		SELECT * FROM transactions,expressBrand WHERE state = @state AND transactions.brandId = expressBrand.brandId
 	END
 ELSE
 	BEGIN
 	IF @state = 2
-		SELECT * FROM transactions WHERE CAST(transDate AS DATE) = CAST(@day AS DATE)
+		SELECT * FROM transactions,expressBrand WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND transactions.brandId = expressBrand.brandId
 	ELSE
-		SELECT * FROM transactions WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND state = @state
+		SELECT * FROM transactions,expressBrand WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND state = @state AND transactions.brandId = expressBrand.brandId
 	END
 END
 GO
@@ -130,10 +130,10 @@ GO
 
 CREATE PROCEDURE getTransDetail(@transId int)
 AS
-SELECT transactionDetail.transId, transactionDetail.mdcID, medicine.name, transactionDetail.quantity FROM transactionDetail JOIN medicine ON  transactionDetail.mdcID = medicine.mdcID WHERE transId = @transId
+SELECT transactionDetail.transId, transactionDetail.mdcID, medicine.name, transactionDetail.quantity, transactionDetail.totalPrice FROM transactionDetail JOIN medicine ON  transactionDetail.mdcID = medicine.mdcID WHERE transactionDetail.transId = @transId
 GO
 
-exec getTransDetail 0
+exec getTransDetail 2
 GO
 
 --Doanh thu tu ngay den ngay
@@ -143,7 +143,7 @@ GO
 
 CREATE PROCEDURE getRevenue(@from date,@to date)
 AS
-SELECT SUM(totalPrice) FROM transactions WHERE CAST(transDate AS DATE) BETWEEN @from AND @to
+SELECT * FROM transactions WHERE CAST(transDate AS DATE) BETWEEN @from AND @to
 GO
 
 
@@ -158,8 +158,6 @@ AS
 SELECT * FROM users WHERE email = @email and password = @password
 GO
 
-exec signIn 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e'
-GO
 
 --Sign up
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'signUp')
@@ -169,9 +167,6 @@ GO
 CREATE PROCEDURE signUp(@email varchar(255), @name nvarchar(255), @phone char(11), @password varchar(255))
 AS
 insert into users(email,name,phone,password) values(@email,@name,@phone,@password)
-GO
-
---exec signUp 'ngxbinh47@gmail.com', N'Nguyễn Xuân Bình','0932758302','e10adc3949ba59abbe56e057f20f883e'
 GO
 
 --Create request import
@@ -188,9 +183,6 @@ BEGIN
 	INSERT INTO storage(importId) VALUES(@importId)
 	RETURN 1
 END
-GO
-
-exec createRequestImport '0006-0221'
 GO
 
 --Approve request import from storage
@@ -258,7 +250,6 @@ BEGIN
 END
 
 
-
 --Create transaction
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'createTransaction')
 	DROP PROCEDURE createTransaction
@@ -276,12 +267,11 @@ BEGIN
 END
 GO
 
-DECLARE @medicineHandler AS medicineHandler
-INSERT INTO @medicineHandler VALUES('0006-0221',2)
-INSERT INTO @medicineHandler VALUES('0009-0094',3)
-INSERT INTO @medicineHandler VALUES('0024-5910',4)
-exec createTransaction @medicineHandler,1,'2022-12-7',100000
-GO
+-- DECLARE @medicineHandler AS medicineHandler
+-- INSERT INTO @medicineHandler VALUES('MDC00001',2)
+-- INSERT INTO @medicineHandler VALUES('MDC00002',3)
+-- exec createTransaction @medicineHandler,1,'2022-12-7',100000
+-- GO   
 
 
 --Update quantity mdc
@@ -305,7 +295,7 @@ GO
 CREATE PROCEDURE deleteTrans(@transId int)
 AS
 BEGIN
-	UPDATE medicine SET quantity = quantity + transactionDetail.quantity FROM transactionDetail WHERE
+	UPDATE medicine SET medicine.quantity = medicine.quantity + transactionDetail.quantity FROM transactionDetail WHERE
 	transactionDetail.transId = @transId
 	DELETE FROM transactionDetail WHERE transId = @transId
 	DELETE FROM transactions WHERE transId = @transId
