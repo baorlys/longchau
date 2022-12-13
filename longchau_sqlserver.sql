@@ -6,7 +6,6 @@ go
 USE longchau;
 go
 
-
 CREATE TABLE roles(
     [roleId] int NOT NULL PRIMARY KEY,
     [roleName] nvarchar(255)
@@ -80,10 +79,9 @@ CREATE TABLE medicine(
     [description] nvarchar(max) DEFAULT NULL,
     [price] int DEFAULT 0,
     [quantity] int DEFAULT 0,
+    [img] varchar(255) DEFAULT NULL,
     FOREIGN KEY ([categoryId]) REFERENCES category ([categoryId])
 )  ;
-
-
 
 CREATE TABLE import(
     [importId] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
