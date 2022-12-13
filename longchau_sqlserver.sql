@@ -105,7 +105,6 @@ CREATE TABLE storage(
 CREATE TABLE transactions(
     [transId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[userId] INT NOT NULL,
-    [transType] nvarchar(255) DEFAULT NULL,
     [transDate] datetime NOT NULL,
     [totalPrice] int DEFAULT 0,
 	[brandId] int DEFAULT 0,

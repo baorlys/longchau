@@ -43,11 +43,10 @@ GO
 
 CREATE PROCEDURE getMdcByID(@mdcId char(10))
 AS
-SELECT * FROM medicine WHERE mdcId = @mdcId
+SELECT medicine.mdcId, medicine.name,medicine.type,medicine.categoryId,category.categoryName,medicine.dateExpire,medicine.labelerName,medicine.description,medicine.price,medicine.quantity,medicine.img FROM medicine,category WHERE medicine.mdcId = @mdcId AND medicine.categoryId = category.categoryId
 GO
 
-exec getMdcByID '0006-0221'
-GO
+exec getMdcByID 'MDC00001'
 
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcByName')
 	DROP PROCEDURE getMdcByName
@@ -55,7 +54,7 @@ GO
 
 CREATE PROCEDURE getMdcByName(@name nvarchar(255))
 AS
-SELECT * FROM medicine WHERE name like CONCAT('%', @name, '%')
+SELECT medicine.mdcId, medicine.name,medicine.type,medicine.categoryId,category.categoryName,medicine.dateExpire,medicine.labelerName,medicine.description,medicine.price,medicine.quantity,medicine.img FROM medicine,category WHERE medicine.categoryId = category.categoryId AND name like CONCAT('%', @name, '%')
 GO
 
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcQuantity')
@@ -76,16 +75,6 @@ AS
 SELECT price FROM medicine WHERE mdcId = @mdcId
 GO
 
--- Get company by cpnId
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getCompany')
-	DROP PROCEDURE getCompany
-GO
-
-CREATE PROCEDURE getCompany(@cpnId char(10))
-AS
-SELECT * FROM company WHERE cpnId = @cpnId
-GO
-
 -- Get transaction by day
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getTrans')
 	DROP PROCEDURE getTrans
@@ -97,9 +86,9 @@ BEGIN
 IF @day IS NULL
 	BEGIN
 	IF @state = 2
-		SELECT *  FROM transactions,expressBrand WHERE transactions.brandId = expressBrand.brandId
+		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users WHERE transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	ELSE
-		SELECT * FROM transactions,expressBrand WHERE state = @state AND transactions.brandId = expressBrand.brandId
+		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users WHERE state = @state AND transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	END
 ELSE
 	BEGIN
@@ -185,7 +174,7 @@ AS
 BEGIN
 	UPDATE storage SET status = 1 WHERE importId = @importId
 	UPDATE import SET status = 1 WHERE importId = @importId
-	UPDATE import SET import.dateExpire = SELECT dateExpire FROM storage WHERE importId = @importId AND storage.importID = import.importID
+	UPDATE import SET import.dateExpire = (SELECT dateExpire FROM storage WHERE storage.importId = @importId) WHERE import.importId = @importId
 	RETURN 1
 END
 GO
