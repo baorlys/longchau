@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Import.cs" />
     <Compile Include="ItemCart.cs" />
     <Compile Include="DataProvider.cs" />
     <Compile Include="Medicine.cs" />
@@ -66,6 +67,7 @@
     </Compile>
     <Compile Include="Revenue.cs" />
     <Compile Include="Roles.cs" />
+    <Compile Include="Storage.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionDetail.cs" />
     <Compile Include="User.cs" />

@@ -58,9 +58,6 @@ AS
 SELECT * FROM medicine WHERE name like CONCAT('%', @name, '%')
 GO
 
-exec getMdcByName 'opion'
-GO
-
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcQuantity')
 	DROP PROCEDURE getMdcQuantity
 GO
@@ -70,9 +67,6 @@ AS
 SELECT quantity FROM medicine WHERE mdcId = @mdcId
 GO
 
-exec getMdcQuantity '0006-0221'
-GO
-
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcPrice')
 	DROP PROCEDURE getMdcPrice
 GO
@@ -80,9 +74,6 @@ GO
 CREATE PROCEDURE getMdcPrice(@mdcId char(10))
 AS
 SELECT price FROM medicine WHERE mdcId = @mdcId
-GO
-
-exec getMdcPrice '0006-0221'
 GO
 
 -- Get company by cpnId
@@ -146,7 +137,6 @@ AS
 SELECT * FROM transactions WHERE CAST(transDate AS DATE) BETWEEN @from AND @to
 GO
 
-
 -------------------------------------------------------------
 -- Sign in
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'signIn')
@@ -167,9 +157,6 @@ GO
 CREATE PROCEDURE signUp(@email varchar(255), @name nvarchar(255), @phone char(11), @password varchar(255))
 AS
 insert into users(email,name,phone,password) values(@email,@name,@phone,@password)
-GO
-
-exec signUp 'ngxbinh47@gmail.com',N'Nguyễn Xuân Bình','0909043076', 'e10adc3949ba59abbe56e057f20f883e'
 GO
 
 --Create request import
@@ -203,9 +190,6 @@ BEGIN
 END
 GO
 
-exec approveRequestImport 1
-GO
-
 --Update request import
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateRequestImport')
 	DROP PROCEDURE updateRequestImport
@@ -221,9 +205,6 @@ BEGIN
 END
 GO
 
-exec updateRequestImport 1
-GO
-
 --Get request import
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getRequestImport')
 	DROP PROCEDURE getRequestImport
@@ -233,7 +214,7 @@ CREATE PROCEDURE getRequestImport(@status int)
 AS
 BEGIN
 	IF @status = 3
-		SELECT * FROM import,medicine WHERE import.mdcId = medicine.mdcId
+		SELECT import.importID,import.requestDate,import.mdcID,medicine.name,import.quantity,import.dateExpire,import.status FROM import,medicine WHERE import.mdcId = medicine.mdcId
 	ELSE
 		SELECT * FROM import,medicine WHERE status = @status AND import.mdcId = medicine.mdcId
 END

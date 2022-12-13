@@ -12,8 +12,8 @@ namespace DTO
 
         private int transId;
         private string mdcId;
-        private int quantity;
         private string name;
+        private int quantity;
         public TransactionDetail(int transId, string mdcId, string name, int quantity)
         {
             this.TransId = transId;
@@ -32,7 +32,7 @@ namespace DTO
 
         public int TransId { get => transId; set => transId = value; }
         public string MdcId { get => mdcId; set => mdcId = value; }
-        public int Quantity { get => quantity; set => quantity = value; }
         public string Name { get => name; set => name = value; }
+        public int Quantity { get => quantity; set => quantity = value; }
     }
 }
