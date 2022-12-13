@@ -131,23 +131,25 @@
             // 
             // txbPassword
             // 
-            this.customInput2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customInput2.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customInput2.BorderRadius = 8;
-            this.customInput2.BorderSize = 2;
-            this.customInput2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.customInput2.Location = new System.Drawing.Point(25, 300);
-            this.customInput2.Margin = new System.Windows.Forms.Padding(4);
-            this.customInput2.Multiline = false;
-            this.customInput2.Name = "customInput2";
-            this.customInput2.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.customInput2.PasswordChar = false;
-            this.customInput2.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customInput2.PlaceholderText = "8+ Characters";
-            this.customInput2.Size = new System.Drawing.Size(534, 36);
-            this.customInput2.TabIndex = 6;
-            this.customInput2.Texts = "";
-            this.customInput2.UnderlinedStyle = false;
+            this.txbPassword.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.txbPassword.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.txbPassword.BorderRadius = 8;
+            this.txbPassword.BorderSize = 2;
+            this.txbPassword.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txbPassword.Location = new System.Drawing.Point(25, 300);
+            this.txbPassword.Margin = new System.Windows.Forms.Padding(4);
+            this.txbPassword.Multiline = false;
+            this.txbPassword.Name = "txbPassword";
+            this.txbPassword.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txbPassword.PasswordChar = false;
+            this.txbPassword.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txbPassword.PlaceholderText = "8+ Characters";
+            this.txbPassword.Size = new System.Drawing.Size(534, 36);
+            this.txbPassword.TabIndex = 6;
+            this.txbPassword.Texts = "";
+            this.txbPassword.UnderlinedStyle = false;
+            this.txbPassword._TextChanged += new System.EventHandler(this.txbPassword__TextChanged);
+            this.txbPassword.Click += new System.EventHandler(this.txbPassword_Click);
             // 
             // label5
             // 
@@ -163,23 +165,25 @@
             // 
             // txbEmail
             // 
-            this.customInput1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customInput1.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customInput1.BorderRadius = 8;
-            this.customInput1.BorderSize = 2;
-            this.customInput1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.customInput1.Location = new System.Drawing.Point(25, 202);
-            this.customInput1.Margin = new System.Windows.Forms.Padding(4);
-            this.customInput1.Multiline = false;
-            this.customInput1.Name = "customInput1";
-            this.customInput1.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.customInput1.PasswordChar = false;
-            this.customInput1.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customInput1.PlaceholderText = "email@gmail.com";
-            this.customInput1.Size = new System.Drawing.Size(534, 36);
-            this.customInput1.TabIndex = 4;
-            this.customInput1.Texts = "";
-            this.customInput1.UnderlinedStyle = false;
+            this.txbEmail.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.txbEmail.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.txbEmail.BorderRadius = 8;
+            this.txbEmail.BorderSize = 2;
+            this.txbEmail.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txbEmail.Location = new System.Drawing.Point(25, 202);
+            this.txbEmail.Margin = new System.Windows.Forms.Padding(4);
+            this.txbEmail.Multiline = false;
+            this.txbEmail.Name = "txbEmail";
+            this.txbEmail.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txbEmail.PasswordChar = false;
+            this.txbEmail.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txbEmail.PlaceholderText = "email@gmail.com";
+            this.txbEmail.Size = new System.Drawing.Size(534, 36);
+            this.txbEmail.TabIndex = 4;
+            this.txbEmail.Texts = "";
+            this.txbEmail.UnderlinedStyle = false;
+            this.txbEmail._TextChanged += new System.EventHandler(this.txbEmail__TextChanged);
+            this.txbEmail.Click += new System.EventHandler(this.txbEmail_Click);
             // 
             // label4
             // 

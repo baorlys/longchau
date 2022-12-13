@@ -336,10 +336,14 @@ namespace GUI.Custom.CustomInput
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (_TextChanged != null)
+            {
                 _TextChanged.Invoke(sender, e);
+                RemovePlaceholder();
+            }
         }
         private void textBox1_Click(object sender, EventArgs e)
         {
+            RemovePlaceholder();
             this.OnClick(e);
         }
         private void textBox1_MouseEnter(object sender, EventArgs e)
