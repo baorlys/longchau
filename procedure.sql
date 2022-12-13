@@ -88,14 +88,14 @@ IF @day IS NULL
 	IF @state = 2
 		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users WHERE transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	ELSE
-		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users WHERE state = @state AND transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
+		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users WHERE transactions.state = @state AND transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	END
 ELSE
 	BEGIN
 	IF @state = 2
-		SELECT * FROM transactions,expressBrand WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND transactions.brandId = expressBrand.brandId
+		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users  WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	ELSE
-		SELECT * FROM transactions,expressBrand WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND state = @state AND transactions.brandId = expressBrand.brandId
+		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users  WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND transactions.state = @state AND transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	END
 END
 GO
@@ -205,7 +205,7 @@ BEGIN
 	IF @status = 3
 		SELECT import.importID,import.requestDate,import.mdcID,medicine.name,import.quantity,import.dateExpire,import.status FROM import,medicine WHERE import.mdcId = medicine.mdcId
 	ELSE
-		SELECT * FROM import,medicine WHERE status = @status AND import.mdcId = medicine.mdcId
+		SELECT import.importID,import.requestDate,import.mdcID,medicine.name,import.quantity,import.dateExpire,import.status FROM import,medicine WHERE import.status = @status AND import.mdcId = medicine.mdcId
 END
 
 --Get storage by status
@@ -274,3 +274,17 @@ BEGIN
 	DELETE FROM transactions WHERE transId = @transId
 	RETURN 1
 END
+go
+
+--Get all MDC
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getAllMedicine')
+	DROP PROCEDURE getAllMedicine
+GO
+
+CREATE PROCEDURE getAllMedicine
+AS 
+	SELECT medicine.mdcId, medicine.name,medicine.type,medicine.categoryId,category.categoryName,medicine.dateExpire,medicine.labelerName,medicine.description,medicine.price,medicine.quantity,medicine.img FROM medicine,category WHERE medicine.categoryId = category.categoryId
+GO
+
+exec getAllMedicine
+GO
