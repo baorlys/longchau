@@ -66,6 +66,7 @@ namespace GUI
                     case 1:
                         btnTrans.BackColor = Color.Green;
                         stateStr = "Đã giao";
+
                         break;
                 }
                 btnTrans.Text = "HD" + trans.UserId.ToString() + Environment.NewLine + stateStr; 
