@@ -288,3 +288,16 @@ GO
 
 exec getAllMedicine
 GO
+
+-- Get MDC have about > 1 month to Expire
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcAboutToExpire')
+	DROP PROCEDURE getMdcAboutToExpire
+GO
+
+CREATE PROCEDURE getMdcAboutToExpire
+AS
+	SELECT medicine.mdcId, medicine.name,medicine.type,medicine.categoryId,category.categoryName,medicine.dateExpire,medicine.labelerName,medicine.description,medicine.price,medicine.quantity,medicine.img FROM medicine,category WHERE medicine.categoryId = category.categoryId AND medicine.dateExpire < GETDATE() OR medicine.dateExpire > DATEADD(month,1,GETDATE()) ORDER BY medicine.dateExpire ASC
+GO
+
+exec getMdcAboutToExpire
+GO
