@@ -114,9 +114,22 @@ namespace GUI
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            SignIn signIn = new SignIn();
-            signIn.ShowDialog();
+            string message = "Nếu đăng xuất giỏ hàng sẽ bị mất?";
+            string title = "Xác nhận";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
+            {
+                foreach (KeyValuePair<string, int> item in cart)
+                {
+                    MedicineDAL.Instance.updateQuantity(item.Key, item.Value);
+                }
+                this.Hide();
+                SignIn signIn = new SignIn();
+                signIn.ShowDialog();
+
+            }
+            
         }
         void picMed_Click(object sender, EventArgs e)
         {

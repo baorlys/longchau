@@ -71,14 +71,23 @@ namespace GUI
 
         private void btnDelAll_Click(object sender, EventArgs e)
         {
-            foreach (KeyValuePair<string, int> item in listItem)
+            string message = "Bạn có muốn xoá hết sản phẩm trong giỏ?";
+            string title = "Xác nhận";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
             {
-                MedicineDAL.Instance.updateQuantity(item.Key, item.Value);
+                foreach (KeyValuePair<string, int> item in listItem)
+                {
+                    MedicineDAL.Instance.updateQuantity(item.Key, item.Value);
+                }
+                Customer.Cart.Clear();
+                Customer.Instance.loadCart();
+                Customer.Instance.loadMedicine();
+                this.Hide();
+
             }
-            Customer.Cart.Clear();
-            Customer.Instance.loadCart();
-            Customer.Instance.loadMedicine();
-            this.Hide();
+            
         }
 
         private void btnBack_Click(object sender, EventArgs e)

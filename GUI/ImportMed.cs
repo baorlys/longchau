@@ -30,10 +30,19 @@ namespace GUI
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            int quantity = (int)nudQuantity.Value;
-            ImportDAL.Instance.importMed(MdcId, quantity);
-            MessageBox.Show("Gửi yêu cầu thành công");
-            this.Hide();
+            string message = "Bạn có muốn nhập hàng hoá này không?";
+            string title = "Xác nhận";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
+            {
+                int quantity = (int)nudQuantity.Value;
+                ImportDAL.Instance.importMed(MdcId, quantity);
+                MessageBox.Show("Gửi yêu cầu thành công");
+                this.Hide();
+
+            }
+            
         }
     }
 }

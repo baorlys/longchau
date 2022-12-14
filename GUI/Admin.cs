@@ -152,9 +152,18 @@ namespace GUI
         #region Events
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            SignIn signIn = new SignIn();
-            signIn.ShowDialog();
+            string message = "Bạn có muốn đăng xuất không?";
+            string title = "Xác nhận";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
+            {
+                this.Hide();
+                SignIn signIn = new SignIn();
+                signIn.ShowDialog();
+
+            }
+            
         }
         private void btnGetTrans_Click(object sender, EventArgs e)
         {
@@ -189,16 +198,32 @@ namespace GUI
 
         private void btnConfirmTrans_Click(object sender, EventArgs e)
         {
-            TransactionDAL.Instance.confirmTrans(TransId, 1);
-            lvTrans.Items.Clear();
-            loadTrans(null, 0);
+            string message = "Bạn có muốn xác nhận đơn hàng này không?";
+            string title = "Xác nhận";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
+            {
+                TransactionDAL.Instance.confirmTrans(TransId, 1);
+                loadTrans(null, 0);
+
+            }
+            
         }
 
         private void btnDelTrans_Click(object sender, EventArgs e)
         {
-            TransactionDAL.Instance.confirmTrans(TransId, 2);
-            lvTrans.Items.Clear();
-            loadTrans(null, 0);
+            string message = "Bạn có muốn huỷ đơn hàng này không?";
+            string title = "Xác nhận";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
+            {
+                TransactionDAL.Instance.confirmTrans(TransId, 2);
+                loadTrans(null, 0);
+
+            }
+            
         }
 
         private void txbFind_TextChanged(object sender, EventArgs e)

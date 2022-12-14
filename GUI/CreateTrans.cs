@@ -64,26 +64,35 @@ namespace GUI
                 MessageBox.Show("Vui lòng nhập địa chỉ");
                 return;
             }
-            DataTable medHandler = new DataTable();
-            medHandler.Columns.Add("mdcId");
-            medHandler.Columns.Add("quantity");
-            foreach (KeyValuePair<string, int> item in Cart.Instance.ListItem)
-            {  
-                medHandler.Rows.Add(item.Key, item.Value);
-            }
-            User user = Customer.Instance.UserLogin;
-            UserDAL.Instance.updateUserAddress(user.Email , tbAddress.Text);
-            TransactionDAL.Instance.createTrans(medHandler, user.UserId,
-                DateTime.Now, Cart.Instance.TotalPrice + 30000, cbBrand.SelectedIndex + 1);
-            Customer.Cart.Clear();
-            Customer.Instance.loadCart();
-            MessageBox.Show("Đơn hàng được tạo thành công ! Chờ xác nhận");
-            this.Hide();
-            for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+            string message = "Bạn có muốn xác nhận đơn hàng này không?";
+            string title = "Xác nhận";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
             {
-                if (Application.OpenForms[i].Name == "Cart")
-                    Application.OpenForms[i].Close();
+                DataTable medHandler = new DataTable();
+                medHandler.Columns.Add("mdcId");
+                medHandler.Columns.Add("quantity");
+                foreach (KeyValuePair<string, int> item in Cart.Instance.ListItem)
+                {
+                    medHandler.Rows.Add(item.Key, item.Value);
+                }
+                User user = Customer.Instance.UserLogin;
+                UserDAL.Instance.updateUserAddress(user.Email, tbAddress.Text);
+                TransactionDAL.Instance.createTrans(medHandler, user.UserId,
+                    DateTime.Now, Cart.Instance.TotalPrice + 30000, cbBrand.SelectedIndex + 1);
+                Customer.Cart.Clear();
+                Customer.Instance.loadCart();
+                MessageBox.Show("Đơn hàng được tạo thành công ! Chờ xác nhận");
+                this.Hide();
+                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                {
+                    if (Application.OpenForms[i].Name == "Cart")
+                        Application.OpenForms[i].Close();
+                }
+
             }
+            
 
 
         }
