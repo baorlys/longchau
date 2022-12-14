@@ -55,13 +55,19 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.lvRevenue = new System.Windows.Forms.ListView();
+            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.btnExportExcel = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.tbCountTrans = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tbTotalPriceRevenue = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.dgvRevenue = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -132,8 +138,6 @@
             this.panel23.SuspendLayout();
             this.panel24.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRevenue)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel17.SuspendLayout();
@@ -396,12 +400,12 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.lvRevenue);
             this.tabPage4.Controls.Add(this.btnExportExcel);
             this.tabPage4.Controls.Add(this.label15);
             this.tabPage4.Controls.Add(this.tbCountTrans);
             this.tabPage4.Controls.Add(this.label14);
             this.tabPage4.Controls.Add(this.tbTotalPriceRevenue);
-            this.tabPage4.Controls.Add(this.panel2);
             this.tabPage4.Controls.Add(this.panel1);
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
@@ -411,13 +415,66 @@
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.UseWaitCursor = true;
             // 
+            // lvRevenue
+            // 
+            this.lvRevenue.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader6,
+            this.columnHeader1,
+            this.columnHeader7,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5});
+            this.lvRevenue.FullRowSelect = true;
+            this.lvRevenue.Location = new System.Drawing.Point(10, 41);
+            this.lvRevenue.Name = "lvRevenue";
+            this.lvRevenue.Size = new System.Drawing.Size(750, 309);
+            this.lvRevenue.TabIndex = 0;
+            this.lvRevenue.UseCompatibleStateImageBehavior = false;
+            this.lvRevenue.UseWaitCursor = true;
+            this.lvRevenue.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "STT";
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Mã hoá đơn";
+            this.columnHeader1.Width = 80;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Ngày tạo";
+            this.columnHeader7.Width = 150;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Khách hàng";
+            this.columnHeader2.Width = 150;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Tổng hoá đơn";
+            this.columnHeader3.Width = 120;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Đơn vị vận chuyển";
+            this.columnHeader4.Width = 120;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Trạng thái";
+            this.columnHeader5.Width = 65;
+            // 
             // btnExportExcel
             // 
-            this.btnExportExcel.Location = new System.Drawing.Point(649, 365);
+            this.btnExportExcel.Location = new System.Drawing.Point(661, 364);
             this.btnExportExcel.Name = "btnExportExcel";
             this.btnExportExcel.Size = new System.Drawing.Size(99, 23);
             this.btnExportExcel.TabIndex = 5;
-            this.btnExportExcel.Text = "Xuất file excel";
+            this.btnExportExcel.Text = ">> Xuất excel";
             this.btnExportExcel.UseVisualStyleBackColor = true;
             this.btnExportExcel.UseWaitCursor = true;
             this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
@@ -425,7 +482,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(478, 365);
+            this.label15.Location = new System.Drawing.Point(460, 368);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(44, 15);
             this.label15.TabIndex = 5;
@@ -434,7 +491,7 @@
             // 
             // tbCountTrans
             // 
-            this.tbCountTrans.Location = new System.Drawing.Point(527, 362);
+            this.tbCountTrans.Location = new System.Drawing.Point(509, 365);
             this.tbCountTrans.Name = "tbCountTrans";
             this.tbCountTrans.Size = new System.Drawing.Size(100, 23);
             this.tbCountTrans.TabIndex = 4;
@@ -443,7 +500,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(271, 365);
+            this.label14.Location = new System.Drawing.Point(253, 368);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(43, 15);
             this.label14.TabIndex = 3;
@@ -452,31 +509,11 @@
             // 
             // tbTotalPriceRevenue
             // 
-            this.tbTotalPriceRevenue.Location = new System.Drawing.Point(320, 362);
+            this.tbTotalPriceRevenue.Location = new System.Drawing.Point(302, 365);
             this.tbTotalPriceRevenue.Name = "tbTotalPriceRevenue";
             this.tbTotalPriceRevenue.Size = new System.Drawing.Size(100, 23);
             this.tbTotalPriceRevenue.TabIndex = 2;
             this.tbTotalPriceRevenue.UseWaitCursor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.dgvRevenue);
-            this.panel2.Location = new System.Drawing.Point(3, 41);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(624, 315);
-            this.panel2.TabIndex = 1;
-            this.panel2.UseWaitCursor = true;
-            // 
-            // dgvRevenue
-            // 
-            this.dgvRevenue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRevenue.Location = new System.Drawing.Point(-7, 3);
-            this.dgvRevenue.Name = "dgvRevenue";
-            this.dgvRevenue.RowHeadersWidth = 51;
-            this.dgvRevenue.RowTemplate.Height = 25;
-            this.dgvRevenue.Size = new System.Drawing.Size(628, 309);
-            this.dgvRevenue.TabIndex = 0;
-            this.dgvRevenue.UseWaitCursor = true;
             // 
             // panel1
             // 
@@ -494,7 +531,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(264, 9);
+            this.label13.Location = new System.Drawing.Point(342, 9);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(57, 15);
             this.label13.TabIndex = 4;
@@ -504,7 +541,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 9);
+            this.label11.Location = new System.Drawing.Point(81, 9);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(49, 15);
             this.label11.TabIndex = 3;
@@ -513,7 +550,7 @@
             // 
             // btnRevenue
             // 
-            this.btnRevenue.Location = new System.Drawing.Point(549, 3);
+            this.btnRevenue.Location = new System.Drawing.Point(617, 3);
             this.btnRevenue.Name = "btnRevenue";
             this.btnRevenue.Size = new System.Drawing.Size(75, 23);
             this.btnRevenue.TabIndex = 2;
@@ -524,7 +561,7 @@
             // 
             // dtpTo
             // 
-            this.dtpTo.Location = new System.Drawing.Point(327, 3);
+            this.dtpTo.Location = new System.Drawing.Point(406, 3);
             this.dtpTo.Name = "dtpTo";
             this.dtpTo.Size = new System.Drawing.Size(200, 23);
             this.dtpTo.TabIndex = 1;
@@ -532,7 +569,7 @@
             // 
             // dtpFrom
             // 
-            this.dtpFrom.Location = new System.Drawing.Point(58, 3);
+            this.dtpFrom.Location = new System.Drawing.Point(136, 3);
             this.dtpFrom.Name = "dtpFrom";
             this.dtpFrom.Size = new System.Drawing.Size(200, 23);
             this.dtpFrom.TabIndex = 0;
@@ -1122,8 +1159,6 @@
             this.panel24.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRevenue)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -1184,8 +1219,6 @@
         private Button button4;
         private Button button5;
         private TabPage tabPage4;
-        private Panel panel2;
-        private DataGridView dgvRevenue;
         private Panel panel1;
         private Button btnRevenue;
         private DateTimePicker dtpTo;
@@ -1250,5 +1283,13 @@
         private CheckBox checkAll;
         private NumericUpDown nudCheckQuantity;
         private Button btnExportExcel;
+        private ListView lvRevenue;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader7;
     }
 }

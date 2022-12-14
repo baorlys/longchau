@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DTO;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Button = System.Windows.Forms.Button;
+
 namespace GUI
 {
     public partial class Admin : Form
@@ -17,6 +20,7 @@ namespace GUI
         private static Admin instance;
         private User userLogin;
         private int transId;
+        public CultureInfo ci = new CultureInfo("vi-VN");
         public User UserLogin
         {
             get { return userLogin; }
@@ -45,7 +49,7 @@ namespace GUI
         #region Method
         public void loadMedicine()
         {
-            if(tbSearch.Text == null)
+            if (tbSearch.Text == null)
             {
                 dgvMedicine.DataSource = MedicineDAL.Instance.loadMedicine();
             }
@@ -54,20 +58,47 @@ namespace GUI
 
         void loadRevenue(DateTime from, DateTime to)
         {
-            dgvRevenue.DataSource = RevenueDAL.Instance.loadRevenueToDt(from,to);
-            RevenueDAL revDAL = RevenueDAL.Instance;
-            List<Revenue> listRev = revDAL.loadRevenue(from, to);
-            tbCountTrans.Text = revDAL.countNumberTrans(listRev).ToString();
-            CultureInfo ci = new CultureInfo("vi-VN");
-            tbTotalPriceRevenue.Text = revDAL.getTotalPriceRev(listRev).ToString("c",ci);
+            lvRevenue.Items.Clear();
+            List<Transaction> list = RevenueDAL.Instance.loadRevenue(from, to);
+            int i = 1;
+            int totalPrice = 0;
+            foreach (Transaction item in list)
+            {
+                ListViewItem lvItem = new ListViewItem(i.ToString());
+                lvItem.SubItems.Add(item.TransId.ToString());
+                lvItem.SubItems.Add(item.TransDate.ToString("dd/MM/yyyy hh:mm:ss tt"));
+                lvItem.SubItems.Add(item.Name);
+                lvItem.SubItems.Add(item.TotalPrice.ToString("c", ci));
+                lvItem.SubItems.Add(item.BrandName);
+                int state = item.State;
+                switch (state)
+                {
+                    case 0:
+                        lvItem.SubItems.Add("Chưa duyệt");
+                        break;
+                    case 1:
+                        lvItem.SubItems.Add("Đã duyệt");
+                        break;
+                    case 2:
+                        lvItem.SubItems.Add("Đã huỷ");
+                        break;
+                }
+                totalPrice += item.TotalPrice;
+                lvRevenue.Items.Add(lvItem);
+                i++;
+            }
+            tbCountTrans.Text = (i - 1).ToString();
+            tbTotalPriceRevenue.Text = totalPrice.ToString("c", ci);
+
         }
 
         void loadTrans(string? date, int state)
         {
             flpTrans.Controls.Clear();
             List<Transaction> listTrans = TransactionDAL.Instance.loadTransList(date, state);
-            foreach(Transaction trans in listTrans) {
-                Button btnTrans = new Button() { Width = TransactionDAL.TransWidth, Height = TransactionDAL.TransHeight};
+            foreach (Transaction trans in listTrans)
+            {
+                Button btnTrans = new Button() { Width = TransactionDAL.TransWidth, Height = TransactionDAL.TransHeight };
                 btnTrans.Click += btnTrans_Click;
                 btnTrans.Tag = trans;
                 string stateStr = "";
@@ -86,7 +117,7 @@ namespace GUI
                         stateStr = "Đã huỷ";
                         break;
                 }
-                btnTrans.Text = "HD" + trans.TransId + Environment.NewLine + stateStr; 
+                btnTrans.Text = "HD" + trans.TransId + Environment.NewLine + stateStr;
 
                 flpTrans.Controls.Add(btnTrans);
             }
@@ -97,7 +128,8 @@ namespace GUI
             lvTrans.Items.Clear();
             List<TransactionDetail> transDetailList = TransactionDetailDAL.Instance.loadTransDetail(transId);
             float totalPrice = 0;
-            foreach (TransactionDetail item in transDetailList) {
+            foreach (TransactionDetail item in transDetailList)
+            {
                 ListViewItem lvItem = new ListViewItem(item.MdcId.ToString());
                 lvItem.SubItems.Add(item.Name.ToString());
                 lvItem.SubItems.Add(item.Quantity.ToString());
@@ -106,7 +138,6 @@ namespace GUI
             }
             int shipCost = 30000;
             tbBrand.Text = brandName;
-            CultureInfo ci = new CultureInfo("vi-VN");
             tbShipCost.Text = shipCost.ToString("c", ci);
             totalPrice += shipCost;
             tbTotalPrice.Text = totalPrice.ToString("c", ci);
@@ -190,7 +221,7 @@ namespace GUI
             tbIdMed.Text = dgvMedicine.CurrentRow.Cells[0].Value.ToString();
             tbNameMed.Text = dgvMedicine.CurrentRow.Cells[1].Value.ToString();
             int price = (int)dgvMedicine.CurrentRow.Cells[8].Value;
-            tbPriceMed.Text = price.ToString("c",ci);
+            tbPriceMed.Text = price.ToString("c", ci);
             tbQuantityMed.Text = dgvMedicine.CurrentRow.Cells[9].Value.ToString();
             dtpDateExpireMed.Value = Convert.ToDateTime(dgvMedicine.CurrentRow.Cells[5].Value.ToString());
         }
@@ -218,28 +249,42 @@ namespace GUI
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-            app.Visible = true;
-            worksheet = workbook.Sheets["Sheet1"];
-            worksheet = workbook.ActiveSheet;
-            worksheet.Name = "Thống kê doanh thu";
-            for (int i = 1; i < dgvRevenue.Columns.Count + 1; i++)
+            string filename = dtpFrom.Value.ToString("dd-MM-yyyy") + "_" + dtpTo.Value.ToString("dd-MM-yyyy");
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true, FileName = filename })
             {
-                worksheet.Cells[1, i] = dgvRevenue.Columns[i - 1].HeaderText;
-            }
-            // storing Each row and column value to excel sheet  
-            for (int i = 0; i < dgvRevenue.Rows.Count - 1; i++)
-            {
-                for (int j = 0; j < dgvRevenue.Columns.Count; j++)
+                if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    worksheet.Cells[i + 2, j + 1] = dgvRevenue.Rows[i].Cells[j].Value.ToString();
+                    Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+                    Workbook wb = app.Workbooks.Add(XlSheetType.xlWorksheet);
+                    Worksheet ws = (Worksheet)app.ActiveSheet;
+                    app.Visible = false;
+                    for (int j = 1; j <= lvRevenue.Columns.Count; j++)
+                    {
+                        var newWidth = Math.Min(50, lvRevenue.Columns[j - 1].Width / 2);
+                        ws.Columns[j].ColumnWidth = newWidth;
+                        ws.Cells[1, j] = lvRevenue.Columns[j - 1].Text;
+                    }
+                    int i = 2;
+                    foreach (ListViewItem item in lvRevenue.Items)
+                    {
+                        for (int k = 1; k <= item.SubItems.Count; k++)
+                        {
+                            ws.Cells[i, k] = item.SubItems[k - 1].Text;
+                        }
+                        i++;
+                    }
+                    int m = lvRevenue.Columns.Count - 3;
+                    ws.Cells[i, m] = "Tổng tiền";
+                    ws.Cells[i, m + 1] = tbTotalPriceRevenue.Text;
+                    ws.Cells[i, m + 2] = "Số hoá đơn";
+                    ws.Cells[i, m + 3] = tbCountTrans.Text;
+                    wb.SaveAs(sfd.FileName, XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, false, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
+                    app.Quit();
+                    MessageBox.Show("Exported Successfully.");
                 }
             }
-            string filename = dtpFrom.Value.ToString("MM-dd-yyyy") + "_" + dtpTo.Value.ToString("MM-dd-yyyy") + ".xls";
-            // save the application  
-            workbook.SaveAs("C:\\Users\\Techzones\\Documents\\Workplace\\IT\\Software Technology\\final_longchau\\Excel_report\\" + filename, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
         }
+
+
     }
 }

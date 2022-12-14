@@ -25,40 +25,40 @@ namespace GUI
 
         private void btnSignIn_Click(object sender, EventArgs e)
         {
-            user.Email = txbEmail.Texts;
-            user.Password = txbPassword.Texts;
-            string message = userBLL.checkLogin(user);
-            switch (message)
-            {
-                case "required email":
-                    MessageBox.Show("Vui lòng nhập email");
-                    return;
-                case "required password":
-                    MessageBox.Show("Vui lòng nhập mật khẩu");
-                    return;
-                case "invalid email/pass":
-                    MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
-                    return;
-            }
-            User userLogin = UserDAL.Instance.getUserByEmail(txbEmail.Texts);
-            this.Hide();
-            if (userLogin.RoleId == 0)
-            {
-                Admin admin = new Admin(userLogin);
-                admin.ShowDialog();
-            }
-            else
-            {
-                Customer customer = new Customer(userLogin);
-                customer.ShowDialog();
-            }
-
-
-            // Hard user to test customer
+            //user.Email = txbEmail.Texts;
+            //user.Password = txbPassword.Texts;
+            //string message = userBLL.checkLogin(user);
+            //switch (message)
+            //{
+            //    case "required email":
+            //        MessageBox.Show("Vui lòng nhập email");
+            //        return;
+            //    case "required password":
+            //        MessageBox.Show("Vui lòng nhập mật khẩu");
+            //        return;
+            //    case "invalid email/pass":
+            //        MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
+            //        return;
+            //}
+            //User userLogin = UserDAL.Instance.getUserByEmail(txbEmail.Texts);
             //this.Hide();
-            //User userLogin = UserDAL.Instance.getUserByEmail("ngxbinh47@gmail.com");
-            //Customer customer = new Customer(userLogin);
-            //customer.ShowDialog();
+            //if (userLogin.RoleId == 0)
+            //{
+            //    Admin admin = new Admin(userLogin);
+            //    admin.ShowDialog();
+            //}
+            //else
+            //{
+            //    Customer customer = new Customer(userLogin);
+            //    customer.ShowDialog();
+            //}
+
+
+            //Hard user to test customer
+            this.Hide();
+            User userLogin = UserDAL.Instance.getUserByEmail("admin@gmail.com");
+            Admin Admin = new Admin(userLogin);
+            Admin.ShowDialog();
 
         }
 

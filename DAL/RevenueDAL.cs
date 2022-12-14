@@ -17,15 +17,15 @@ namespace DAL
             set { RevenueDAL.instance = value; }
         }
 
-        public List<Revenue> loadRevenue(DateTime from, DateTime to)
+        public List<Transaction> loadRevenue(DateTime from, DateTime to)
         {
-            List<Revenue> list = new List<Revenue>();
+            List<Transaction> list = new List<Transaction>();
             string query = "exec dbo.getRevenue @from , @to";
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { from, to });
             foreach (DataRow item in data.Rows)
             {
-                Revenue rev = new Revenue(item);
-                list.Add(rev);
+                Transaction trans = new Transaction(item);
+                list.Add(trans);
             }
             return list;
         }
