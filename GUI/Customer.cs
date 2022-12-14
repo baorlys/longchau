@@ -7,9 +7,14 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Drawing;
+using System.Data.SqlClient;
+using System.Drawing.Drawing2D;
 
 namespace GUI
 {
@@ -19,7 +24,7 @@ namespace GUI
         private User userLogin;
         private static IDictionary<string, int> cart = new Dictionary<string, int>();
         public int quantity = 0;
-        
+
 
         public User UserLogin
         {
@@ -35,7 +40,7 @@ namespace GUI
 
         public static IDictionary<string, int> Cart { get => cart; set => cart = value; }
 
-        private Customer(){}
+        private Customer() { }
 
         public Customer(User userLogin)
         {
@@ -45,28 +50,61 @@ namespace GUI
 
             xinChàoToolStripMenuItem.Text += " " + userLogin.Name;
             giỏHàngToolStripMenuItem.Text = "Giỏ hàng (" + Cart.Count + ")";
-            loadMedicine();
-            
+
         }
 
-        
+
 
         #region methods
-        void loadMedicine()
+        public void loadMedicine()
         {
-            List<Medicine> listMed = MedicineDAL.Instance.loadMedicine();
+            flpMed.Controls.Clear(); 
+            List<Medicine> listMed = MedicineDAL.Instance.loadMedicineByName(tbSearch.Text);
             CultureInfo ci = new CultureInfo("vi-VN");
             foreach (Medicine med in listMed)
             {
-                Button btnMed = new Button() { Width = MedicineDAL.MedWidth, Height = MedicineDAL.MedHeight };
-                btnMed.Click += btnMed_Click;
-                btnMed.Tag = med;
-                btnMed.BackColor = Color.Aqua;
-                btnMed.Text = med.Name + Environment.NewLine + med.Price.ToString("c",ci);
+                PictureBox picMed = new PictureBox();
+                picMed.Click += picMed_Click;
+                picMed.Tag = med;
+                picMed.Width = 280;
+                picMed.Height = 280;
+                picMed.BackgroundImageLayout = ImageLayout.Stretch;
+                MemoryStream ms = new MemoryStream(med.Img);
+                Bitmap bmp = new Bitmap(ms);
+                picMed.BackgroundImage = bmp;
+                picMed.BorderStyle = BorderStyle.FixedSingle;
 
-                flpMed.Controls.Add(btnMed);
+                Label price = new Label();
+                price.Text = med.Price.ToString("c", ci);
+                price.BackColor = Color.Green;
+                price.TextAlign = ContentAlignment.MiddleCenter;
+                price.Dock = DockStyle.Bottom;
+                price.Width = 50;
+
+
+                Label name = new Label();
+                name.Text = med.Name;
+                if (med.Quantity == 0)
+                {
+                    name.Text += " (hết hàng)";
+                    name.BackColor = Color.IndianRed;
+                }
+                else name.BackColor = Color.LightBlue;
+                if (Cart.ContainsKey(med.MdcId))
+                {
+                    name.Text = med.Name + " (trong giỏ hàng)";
+                    name.BackColor = Color.Yellow;
+                }
+                name.TextAlign = ContentAlignment.MiddleCenter;
+                name.Width = 280;
+
+                picMed.Controls.Add(price);
+                picMed.Controls.Add(name);
+                flpMed.Controls.Add(picMed);
+
             }
         }
+
 
         public void loadCart()
         {
@@ -86,9 +124,9 @@ namespace GUI
             SignIn signIn = new SignIn();
             signIn.ShowDialog();
         }
-        void btnMed_Click(object sender, EventArgs e)
+        void picMed_Click(object sender, EventArgs e)
         {
-            Medicine med = (sender as Button).Tag as Medicine;
+            Medicine med = (sender as PictureBox).Tag as Medicine;
             MedicineInfo medicineInfo = new MedicineInfo(med);
             medicineInfo.ShowDialog();
         }
@@ -98,6 +136,17 @@ namespace GUI
         {
             Cart listItem = new Cart(Cart);
             listItem.ShowDialog();
+        }
+
+        private void Customer_Load(object sender, EventArgs e)
+        {
+            loadMedicine();
+
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            loadMedicine();
         }
     }
 }

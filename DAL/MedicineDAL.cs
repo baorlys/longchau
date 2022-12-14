@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DAL
 {
@@ -23,7 +24,7 @@ namespace DAL
         public List<Medicine> loadMedicine()
         {
             List<Medicine> list = new List<Medicine>();
-            string query = "select * from medicine";
+            string query = "exec dbo.getAllMedicine";
             DataTable data = DataProvider.Instance.ExecuteQuery(query, null);
             foreach(DataRow item in data.Rows) {
                 Medicine med = new Medicine(item);
@@ -34,7 +35,7 @@ namespace DAL
 
         public DataTable loadMedicineToDt()
         {
-            string query = "select * from medicine";
+            string query = "exec dbo.getAllMedicine";
             DataTable data = DataProvider.Instance.ExecuteQuery(query, null);
             return data;
         }
@@ -51,5 +52,24 @@ namespace DAL
             return null;
         }
 
+        public List<Medicine> loadMedicineByName(string name)
+        {
+            List<Medicine> list = new List<Medicine>();
+            string query = "exec dbo.getMdcByName @name";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] {name});
+            foreach (DataRow item in data.Rows)
+            {
+                Medicine med = new Medicine(item);
+                list.Add(med);
+            }
+            return list;
+        }
+
+        public bool updateQuantity(string mdcId, int quantity)
+        {
+            string query = "exec dbo.updateMdcQuantity @mdcId , @quantity";
+            DataProvider.Instance.ExecuteQuery(query, new object[] { mdcId, quantity });
+            return true;
+        }
     }
 }

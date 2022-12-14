@@ -39,5 +39,13 @@ namespace DAL
             }
             return transList;
         }
+
+        public bool createTrans(DataTable medHandler, int userId, DateTime transDate, int totalPrice, int brandId)
+        {
+
+            string query = "exec dbo.createTransaction @medicineHandler , @userId , @transDate , @totalPrice , @brandId";
+            DataTable data = DataProvider.Instance.ExecuteQueryForTrans(query, new object[] { medHandler, userId, transDate, totalPrice, brandId });
+            return true;
+        }
     }
 }

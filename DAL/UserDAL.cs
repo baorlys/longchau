@@ -74,5 +74,14 @@ namespace DAL
             message.setStatus(true);
             return message;
         }
+
+        public bool updateUserAddress(string email, string address) {
+            string query = "exec dbo.updateUserAddress @email , @address";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { email, address });
+            return true;
+        }
+        
+
+        
     }
 }
