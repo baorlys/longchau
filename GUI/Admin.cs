@@ -49,10 +49,6 @@ namespace GUI
         #region Method
         public void loadMedicine()
         {
-            if (tbSearch.Text == null)
-            {
-                dgvMedicine.DataSource = MedicineDAL.Instance.loadMedicine();
-            }
             dgvMedicine.DataSource = MedicineDAL.Instance.loadMedicineByNameToDt(tbSearch.Text);
         }
 
@@ -258,10 +254,10 @@ namespace GUI
                     Workbook wb = app.Workbooks.Add(XlSheetType.xlWorksheet);
                     Worksheet ws = (Worksheet)app.ActiveSheet;
                     app.Visible = false;
+                    ws.Rows.AutoFit();
                     for (int j = 1; j <= lvRevenue.Columns.Count; j++)
                     {
-                        var newWidth = Math.Min(50, lvRevenue.Columns[j - 1].Width / 2);
-                        ws.Columns[j].ColumnWidth = newWidth;
+                        ws.Columns.ColumnWidth = lvRevenue.Columns[j-1].Width;
                         ws.Cells[1, j] = lvRevenue.Columns[j - 1].Text;
                     }
                     int i = 2;
@@ -275,16 +271,26 @@ namespace GUI
                     }
                     int m = lvRevenue.Columns.Count - 3;
                     ws.Cells[i, m] = "Tổng tiền";
+                    ws.Cells[i, m].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
                     ws.Cells[i, m + 1] = tbTotalPriceRevenue.Text;
+                    ws.Cells[i, m + 1].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
                     ws.Cells[i, m + 2] = "Số hoá đơn";
+                    ws.Cells[i, m + 2].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGreen);
                     ws.Cells[i, m + 3] = tbCountTrans.Text;
+                    ws.Cells[i, m + 3].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGreen);
+                    ws.Columns.AutoFit();
+
                     wb.SaveAs(sfd.FileName, XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, false, false, XlSaveAsAccessMode.xlNoChange, XlSaveConflictResolution.xlLocalSessionChanges, Type.Missing, Type.Missing);
                     app.Quit();
-                    MessageBox.Show("Exported Successfully.");
+                    MessageBox.Show("Xuất file thành công.");
                 }
             }
         }
 
-
+        private void yêuCầuNhậpHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListImport listImport = new ListImport();
+            listImport.ShowDialog();
+        }
     }
 }

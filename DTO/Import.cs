@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    internal class Import
+    public class Import
     {
         private string importId;
         private DateTime requestDate;

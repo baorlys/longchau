@@ -33,7 +33,6 @@ namespace GUI
             int quantity = (int)nudQuantity.Value;
             ImportDAL.Instance.importMed(MdcId, quantity);
             MessageBox.Show("Gửi yêu cầu thành công");
-            Admin.Instance.loadMedicine();
             this.Hide();
         }
     }

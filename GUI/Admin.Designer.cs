@@ -35,6 +35,7 @@
             this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thôngTinTàiKhoảnToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yêuCầuNhậpHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.panel14 = new System.Windows.Forms.Panel();
             this.panel15 = new System.Windows.Forms.Panel();
@@ -174,7 +175,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adminToolStripMenuItem});
+            this.adminToolStripMenuItem,
+            this.yêuCầuNhậpHàngToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(804, 24);
@@ -203,6 +205,13 @@
             this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
             this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
+            // 
+            // yêuCầuNhậpHàngToolStripMenuItem
+            // 
+            this.yêuCầuNhậpHàngToolStripMenuItem.Name = "yêuCầuNhậpHàngToolStripMenuItem";
+            this.yêuCầuNhậpHàngToolStripMenuItem.Size = new System.Drawing.Size(120, 20);
+            this.yêuCầuNhậpHàngToolStripMenuItem.Text = "Yêu cầu nhập hàng";
+            this.yêuCầuNhậpHàngToolStripMenuItem.Click += new System.EventHandler(this.yêuCầuNhậpHàngToolStripMenuItem_Click);
             // 
             // tabPage5
             // 
@@ -491,6 +500,7 @@
             // 
             // tbCountTrans
             // 
+            this.tbCountTrans.BackColor = System.Drawing.SystemColors.Info;
             this.tbCountTrans.Location = new System.Drawing.Point(509, 365);
             this.tbCountTrans.Name = "tbCountTrans";
             this.tbCountTrans.Size = new System.Drawing.Size(100, 23);
@@ -509,6 +519,7 @@
             // 
             // tbTotalPriceRevenue
             // 
+            this.tbTotalPriceRevenue.BackColor = System.Drawing.SystemColors.Info;
             this.tbTotalPriceRevenue.Location = new System.Drawing.Point(302, 365);
             this.tbTotalPriceRevenue.Name = "tbTotalPriceRevenue";
             this.tbTotalPriceRevenue.Size = new System.Drawing.Size(100, 23);
@@ -1291,5 +1302,6 @@
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
+        private ToolStripMenuItem yêuCầuNhậpHàngToolStripMenuItem;
     }
 }
