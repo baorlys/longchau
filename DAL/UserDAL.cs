@@ -80,8 +80,14 @@ namespace DAL
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { email, address });
             return true;
         }
-        
 
-        
+        public bool updateUserInfo(string email, string name, string phone, string address)
+        {
+            string query = "exec dbo.updateUserInfo @email , @name , @phone , @address";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { email, name, phone, address });
+            return true;
+        }
+
+
     }
 }

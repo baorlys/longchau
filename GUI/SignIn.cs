@@ -56,9 +56,9 @@ namespace GUI
 
             // Hard user to test customer
             this.Hide();
-            User userLogin = UserDAL.Instance.getUserByEmail("ngxbinh47@gmail.com");
-            Customer customer = new Customer(userLogin);
-            customer.ShowDialog();
+            User userLogin = UserDAL.Instance.getUserByEmail("admin@gmail.com");
+            Admin admin = new Admin(userLogin);
+            admin.ShowDialog();
 
         }
 

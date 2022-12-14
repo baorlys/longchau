@@ -36,10 +36,6 @@ namespace DTO
         {
             this.TransId = (int)row["transId"];
             this.UserId = (int)row["userId"];
-            if (row["transType"] != null)
-            {
-                this.TransType = row["transType"].ToString();
-            }
             this.TransDate = Convert.ToDateTime(row["transDate"]); ;
             this.TotalPrice = (int)row["totalPrice"]; ;
             this.BrandId = (int)row["brandId"]; ;

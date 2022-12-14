@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportDAL.cs" />
     <Compile Include="MD5Hash.cs" />
     <Compile Include="MedicineDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -28,6 +28,7 @@ namespace DTO
             this.Name = row["name"].ToString();
             this.Password = row["password"].ToString();
             this.Phone = row["phone"].ToString();
+            this.Address = row["address"].ToString();
             this.roleId = (int)row["roleId"];
         }
 

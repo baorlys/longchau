@@ -47,5 +47,25 @@ namespace DAL
             DataTable data = DataProvider.Instance.ExecuteQueryForTrans(query, new object[] { medHandler, userId, transDate, totalPrice, brandId });
             return true;
         }
+
+        public List<Transaction> loadTransListByUserId(string userId, int state)
+        {
+            List<Transaction> transList = new List<Transaction>();
+            string query = "exec dbo.getTransactionByUserId @userId , @state";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { userId, state });
+            foreach (DataRow item in data.Rows)
+            {
+                Transaction trans = new Transaction(item);
+                transList.Add(trans);
+            }
+            return transList;
+        }
+
+        public bool confirmTrans(int transId, int state)
+        {
+            string query = "exec dbo.confirmTrans @transId , @state";
+            DataProvider.Instance.ExecuteQuery(query, new object[] { transId, state });
+            return true;
+        }
     }
 }
