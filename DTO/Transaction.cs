@@ -11,26 +11,13 @@ namespace DTO
     {
         private int transId;
         private int userId;
-        private string transType = null;
+        private int name;
         private DateTime transDate;
         private int totalPrice = 0;
         private int brandId = 0;
         private string brandName;
         private int expressState = 0;
         private int state = 0;
-
-        public Transaction(int transId, int userId,string transType, DateTime transDate, int totalPrice, int brandId, string brandName, int expressState, int state)
-        {
-            this.TransId = transId;
-            this.UserId = userId;
-            this.TransType = transType;
-            this.TransDate = transDate;
-            this.TotalPrice = totalPrice;
-            this.BrandId = brandId;
-            this.BrandName = brandName;
-            this.ExpressState = expressState;
-            this.State = state;
-        }
 
         public Transaction(DataRow row)
         {
