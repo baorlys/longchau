@@ -29,17 +29,19 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.txbEmail = new System.Windows.Forms.TextBox();
+            this.tbEmail = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txbName = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.txbPhone = new System.Windows.Forms.TextBox();
+            this.tbPhone = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.txbAddress = new System.Windows.Forms.TextBox();
+            this.tbAddress = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -56,17 +58,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Email";
             // 
-            // txbEmail
+            // tbEmail
             // 
-            this.txbEmail.Location = new System.Drawing.Point(117, 18);
-            this.txbEmail.Name = "txbEmail";
-            this.txbEmail.ReadOnly = true;
-            this.txbEmail.Size = new System.Drawing.Size(252, 23);
-            this.txbEmail.TabIndex = 1;
+            this.tbEmail.Location = new System.Drawing.Point(117, 18);
+            this.tbEmail.Name = "tbEmail";
+            this.tbEmail.ReadOnly = true;
+            this.tbEmail.Size = new System.Drawing.Size(252, 23);
+            this.tbEmail.TabIndex = 1;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.txbEmail);
+            this.panel1.Controls.Add(this.tbEmail);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
@@ -75,20 +77,19 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.txbName);
+            this.panel3.Controls.Add(this.tbName);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Location = new System.Drawing.Point(12, 77);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(372, 59);
             this.panel3.TabIndex = 3;
             // 
-            // txbName
+            // tbName
             // 
-            this.txbName.Location = new System.Drawing.Point(117, 18);
-            this.txbName.Name = "txbName";
-            this.txbName.ReadOnly = true;
-            this.txbName.Size = new System.Drawing.Size(252, 23);
-            this.txbName.TabIndex = 1;
+            this.tbName.Location = new System.Drawing.Point(117, 18);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(252, 23);
+            this.tbName.TabIndex = 1;
             // 
             // label3
             // 
@@ -102,20 +103,19 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.txbPhone);
+            this.panel2.Controls.Add(this.tbPhone);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(12, 142);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(372, 59);
             this.panel2.TabIndex = 4;
             // 
-            // txbPhone
+            // tbPhone
             // 
-            this.txbPhone.Location = new System.Drawing.Point(117, 18);
-            this.txbPhone.Name = "txbPhone";
-            this.txbPhone.ReadOnly = true;
-            this.txbPhone.Size = new System.Drawing.Size(252, 23);
-            this.txbPhone.TabIndex = 1;
+            this.tbPhone.Location = new System.Drawing.Point(117, 18);
+            this.tbPhone.Name = "tbPhone";
+            this.tbPhone.Size = new System.Drawing.Size(252, 23);
+            this.tbPhone.TabIndex = 1;
             // 
             // label2
             // 
@@ -129,20 +129,19 @@
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.txbAddress);
+            this.panel4.Controls.Add(this.tbAddress);
             this.panel4.Controls.Add(this.label4);
             this.panel4.Location = new System.Drawing.Point(12, 207);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(372, 59);
             this.panel4.TabIndex = 5;
             // 
-            // txbAddress
+            // tbAddress
             // 
-            this.txbAddress.Location = new System.Drawing.Point(117, 18);
-            this.txbAddress.Name = "txbAddress";
-            this.txbAddress.ReadOnly = true;
-            this.txbAddress.Size = new System.Drawing.Size(252, 23);
-            this.txbAddress.TabIndex = 1;
+            this.tbAddress.Location = new System.Drawing.Point(117, 18);
+            this.tbAddress.Name = "tbAddress";
+            this.tbAddress.Size = new System.Drawing.Size(252, 23);
+            this.tbAddress.TabIndex = 1;
             // 
             // label4
             // 
@@ -154,11 +153,33 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Địa chỉ";
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(196, 285);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 6;
+            this.btnBack.Text = "Trở lại";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(306, 285);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 7;
+            this.btnUpdate.Text = "Cập nhật";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // UserInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 295);
+            this.ClientSize = new System.Drawing.Size(401, 320);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
@@ -180,16 +201,18 @@
         #endregion
 
         private Label label1;
-        private TextBox txbEmail;
+        private TextBox tbEmail;
         private Panel panel1;
         private Panel panel3;
-        private TextBox txbName;
+        private TextBox tbName;
         private Label label3;
         private Panel panel2;
-        private TextBox txbPhone;
+        private TextBox tbPhone;
         private Label label2;
         private Panel panel4;
-        private TextBox txbAddress;
+        private TextBox tbAddress;
         private Label label4;
+        private Button btnBack;
+        private Button btnUpdate;
     }
 }

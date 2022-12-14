@@ -95,23 +95,6 @@ namespace DAL
             return true;
         }
 
-        public bool checkOTP(string email, string otp)
-        {
-            string query = "exec dbo.checkOTP @email , @otp";
-            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { email, otp });
-            if (data.Rows.Count > 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool changePassword(string email, string newPass)
-        {
-            string query = "exec dbo.changePassword @email , @password";
-            string password = md5.GetHash(newPass);
-            DataProvider.Instance.ExecuteQuery(query, new object[] { email, password });
-            return true;
-        }
+        
     }
 }

@@ -147,5 +147,18 @@ namespace GUI
         {
             loadMedicine();
         }
+
+        private void lịchSửMuaHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserTransHistory userTransHistory = new UserTransHistory();
+            userTransHistory.ShowDialog();
+            
+        }
+
+        private void thôngTinTàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserInfo userInfo = new UserInfo(UserLogin);
+            userInfo.ShowDialog();
+        }
     }
 }

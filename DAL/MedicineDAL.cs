@@ -65,11 +65,26 @@ namespace DAL
             return list;
         }
 
+        public DataTable loadMedicineByNameToDt(string name)
+        {
+            string query = "exec dbo.getMdcByName @name";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { name });
+            return data;
+        }
+
         public bool updateQuantity(string mdcId, int quantity)
         {
             string query = "exec dbo.updateMdcQuantity @mdcId , @quantity";
             DataProvider.Instance.ExecuteQuery(query, new object[] { mdcId, quantity });
             return true;
+        }
+
+
+        public DataTable getMdcAboutToExpire(int quantity)
+        {
+            string query = "exec dbo.getMdcAboutToExpire @quantity";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { quantity });
+            return data;
         }
     }
 }

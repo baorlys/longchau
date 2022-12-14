@@ -14,13 +14,8 @@ namespace DTO
         private string mdcId;
         private string name;
         private int quantity;
-        public TransactionDetail(int transId, string mdcId, string name, int quantity)
-        {
-            this.TransId = transId;
-            this.MdcId = mdcId;
-            this.Name = name;
-            this.Quantity = quantity;
-        }
+        private int price;
+
 
         public TransactionDetail(DataRow row)
         {
@@ -28,11 +23,13 @@ namespace DTO
             this.MdcId = row["mdcId"].ToString();
             this.Name = row["name"].ToString();
             this.Quantity = (int)row["quantity"];
+            this.Price = (int)row["price"];
         }
 
         public int TransId { get => transId; set => transId = value; }
         public string MdcId { get => mdcId; set => mdcId = value; }
         public string Name { get => name; set => name = value; }
         public int Quantity { get => quantity; set => quantity = value; }
+        public int Price { get => price; set => price = value; }
     }
 }

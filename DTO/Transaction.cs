@@ -23,7 +23,7 @@ namespace DTO
         {
             this.TransId = (int)row["transId"];
             this.UserId = (int)row["userId"];
-            this.Name = row["name"].ToString();
+            this.Name = (int)row["name"];
             this.TransDate = Convert.ToDateTime(row["transDate"]); ;
             this.TotalPrice = (int)row["totalPrice"];
             this.BrandId = (int)row["brandId"];
