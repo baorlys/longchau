@@ -110,30 +110,6 @@ CREATE TABLE transactionDetail(
     FOREIGN KEY ([transId]) REFERENCES transactions ([transId]) ON DELETE CASCADE
 )  ;
 
-CREATE TABLE disease(
-    [diseaseId] int NOT NULL IDENTITY(1,1)  PRIMARY KEY,
-    [diseaseName] nvarchar(255) NOT NULL,
-    [diseaseInfo] nvarchar(255) NOT NULL
-)  ;
-
-CREATE TABLE certificate(
-    [cerId] char(8) NOT NULL PRIMARY KEY,
-    [diseaseId] int NOT NULL,
-    [hospital] nvarchar(255) NOT NULL,
-    FOREIGN KEY ([diseaseId]) REFERENCES disease ([diseaseId])
-)  ;
-
-CREATE TABLE certificateDetail(
-    [cerId] char(8) NOT NULL,
-    [mdcID] varchar(10) NOT NULL,
-    [quantity] int DEFAULT 0,
-    FOREIGN KEY ([cerId]) REFERENCES certificate ([cerId]),
-    FOREIGN KEY ([mdcID]) REFERENCES medicine([mdcID]) ON DELETE CASCADE
-)  ;
-GO
-
-DROP TABLE OTP
-
 CREATE TABLE OTP(
 	[otpId] int NOT NULL IDENTITY(1,1)  PRIMARY KEY,
     [email] varchar(255) NOT NULL,

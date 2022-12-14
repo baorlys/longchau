@@ -47,7 +47,6 @@ namespace GUI
             InitializeComponent();
             Instance = this;
             this.userLogin = userLogin;
-
             xinChàoToolStripMenuItem.Text += " " + userLogin.Name;
             giỏHàngToolStripMenuItem.Text = "Giỏ hàng (" + Cart.Count + ")";
 
@@ -101,19 +100,14 @@ namespace GUI
                 picMed.Controls.Add(price);
                 picMed.Controls.Add(name);
                 flpMed.Controls.Add(picMed);
-
             }
         }
-
 
         public void loadCart()
         {
             giỏHàngToolStripMenuItem.Text = "Giỏ hàng (" + Cart.Count + ")";
 
         }
-
-
-
         #endregion
 
         #region events
@@ -151,12 +145,12 @@ namespace GUI
         private void lịchSửMuaHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserTransHistory userTransHistory = new UserTransHistory();
-            userTransHistory.ShowDialog();
-            
+            userTransHistory.ShowDialog(); 
         }
 
         private void thôngTinTàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            userLogin = UserDAL.Instance.getUserByEmail(userLogin.Email);
             UserInfo userInfo = new UserInfo(UserLogin);
             userInfo.ShowDialog();
         }

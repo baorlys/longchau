@@ -82,6 +82,13 @@ namespace DAL
             return true;
         }
 
+        public bool updateUserInfo(string email, string name, string phone, string address)
+        {
+            string query = "exec dbo.updateUserInfo @email , @name , @phone , @address";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { email, name, phone, address });
+            return true;
+        }
+
         public bool sendOTP(string email,string otp)
         {
             string query = "exec dbo.checkEmail @email";
@@ -95,6 +102,18 @@ namespace DAL
             return true;
         }
 
+        public bool checkOTP(string email,string otp)
+        {
+            string query = "exec dbo.checkOTP @email , @otp";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { email, otp });
+            if (data.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        
         
     }
 }

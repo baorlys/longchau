@@ -9,8 +9,6 @@ namespace DTO
 {
     public class User
     {
-
-
         private int userId;
         private string email;
         private string name;
