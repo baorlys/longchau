@@ -11,16 +11,6 @@ AS
 UPDATE users SET password = @password WHERE email = @email
 GO
 
---Update userInfo procedure
-IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateUserInfo')
-    DROP PROCEDURE updateUserInfo
-GO
-
-CREATE PROCEDURE updateUserInfo(@email varchar(255), @name nvarchar(255), @phone char(11), @birthday date, @address nvarchar(255))
-AS
-UPDATE users SET name = @name, phone = @phone, birthday = @birthday, address = @address WHERE email = @email
-GO
-
 --Get transaction by user's id procedure
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getTransactionByUserID')
     DROP PROCEDURE getTransactionByUserID

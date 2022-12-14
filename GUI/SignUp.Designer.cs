@@ -38,7 +38,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txbConfirm = new GUI.Custom.CustomInput.CustomInput();
             this.label8 = new System.Windows.Forms.Label();
-            this.customButton2 = new GUI.Custom.CustomButton.CustomButton();
+            this.btnSignUp = new GUI.Custom.CustomButton.CustomButton();
             this.txbPassword = new GUI.Custom.CustomInput.CustomInput();
             this.label7 = new System.Windows.Forms.Label();
             this.txbName = new GUI.Custom.CustomInput.CustomInput();
@@ -75,7 +75,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.label6);
             this.splitContainer1.Panel2.Controls.Add(this.txbConfirm);
             this.splitContainer1.Panel2.Controls.Add(this.label8);
-            this.splitContainer1.Panel2.Controls.Add(this.customButton2);
+            this.splitContainer1.Panel2.Controls.Add(this.btnSignUp);
             this.splitContainer1.Panel2.Controls.Add(this.txbPassword);
             this.splitContainer1.Panel2.Controls.Add(this.label7);
             this.splitContainer1.Panel2.Controls.Add(this.txbName);
@@ -205,25 +205,25 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Nhập lại mật khẩu";
             // 
-            // customButton2
+            // btnSignUp
             // 
-            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customButton2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customButton2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton2.BorderRadius = 14;
-            this.customButton2.BorderSize = 0;
-            this.customButton2.FlatAppearance.BorderSize = 0;
-            this.customButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.customButton2.ForeColor = System.Drawing.Color.White;
-            this.customButton2.Location = new System.Drawing.Point(35, 560);
-            this.customButton2.Name = "customButton2";
-            this.customButton2.Size = new System.Drawing.Size(211, 54);
-            this.customButton2.TabIndex = 7;
-            this.customButton2.Text = "Đăng ký";
-            this.customButton2.TextColor = System.Drawing.Color.White;
-            this.customButton2.UseVisualStyleBackColor = false;
-            this.customButton2.Click += new System.EventHandler(this.customButton2_Click);
+            this.btnSignUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.btnSignUp.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.btnSignUp.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnSignUp.BorderRadius = 14;
+            this.btnSignUp.BorderSize = 0;
+            this.btnSignUp.FlatAppearance.BorderSize = 0;
+            this.btnSignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSignUp.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSignUp.ForeColor = System.Drawing.Color.White;
+            this.btnSignUp.Location = new System.Drawing.Point(35, 560);
+            this.btnSignUp.Name = "btnSignUp";
+            this.btnSignUp.Size = new System.Drawing.Size(211, 54);
+            this.btnSignUp.TabIndex = 7;
+            this.btnSignUp.Text = "Đăng ký";
+            this.btnSignUp.TextColor = System.Drawing.Color.White;
+            this.btnSignUp.UseVisualStyleBackColor = false;
+            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             // 
             // txbPassword
             // 
@@ -330,6 +330,7 @@
             this.customButton1.Text = "Đăng nhập";
             this.customButton1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.customButton1.UseVisualStyleBackColor = false;
+            this.customButton1.Click += new System.EventHandler(this.customButton2_Click);
             // 
             // label2
             // 
@@ -379,7 +380,7 @@
         private Custom.CustomInput.CustomInput txbEmail;
         private Label label6;
         private Custom.CustomInput.CustomInput txbName;
-        private Custom.CustomButton.CustomButton customButton2;
+        private Custom.CustomButton.CustomButton btnSignUp;
         private Custom.CustomInput.CustomInput txbConfirm;
         private Label label8;
         private Custom.CustomInput.CustomInput txbPhone;

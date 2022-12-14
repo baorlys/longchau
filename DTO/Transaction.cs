@@ -11,7 +11,7 @@ namespace DTO
     {
         private int transId;
         private int userId;
-        private int name;
+        private string name;
         private DateTime transDate;
         private int totalPrice = 0;
         private int brandId = 0;
@@ -23,18 +23,18 @@ namespace DTO
         {
             this.TransId = (int)row["transId"];
             this.UserId = (int)row["userId"];
-            this.Name = (int)row["name"];
+            this.Name = row["name"].ToString();
             this.TransDate = Convert.ToDateTime(row["transDate"]); ;
-            this.TotalPrice = (int)row["totalPrice"]; ;
-            this.BrandId = (int)row["brandId"]; ;
+            this.TotalPrice = (int)row["totalPrice"];
+            this.BrandId = (int)row["brandId"];
             this.BrandName = row["brandName"].ToString();
-            this.ExpressState = (int)row["expressState"]; ;
-            this.State = (int)row["state"]; ;
+            this.ExpressState = (int)row["expressState"];
+            this.State = (int)row["state"];
         }
 
         public int TransId { get => transId; set => transId = value; }
         public int UserId { get => userId; set => userId = value; }
-        public int Name { get => name; set => name = value; }
+        public string Name { get => name; set => name = value; }
         public DateTime TransDate { get => transDate; set => transDate = value; }
         public int TotalPrice { get => totalPrice; set => totalPrice = value; }
         public int BrandId { get => brandId; set => brandId = value; }

@@ -85,14 +85,14 @@ AS
 BEGIN
 IF @day IS NULL
 	BEGIN
-	IF @state = 2
+	IF @state = 3
 		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users WHERE transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	ELSE
 		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users WHERE transactions.state = @state AND transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	END
 ELSE
 	BEGIN
-	IF @state = 2
+	IF @state = 3
 		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users  WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
 	ELSE
 		SELECT transactions.transId,transactions.userId,users.name,transactions.transDate,transactions.totalPrice,transactions.brandId,expressBrand.brandName,transactions.expressState,transactions.state  FROM transactions,expressBrand,users  WHERE CAST(transDate AS DATE) = CAST(@day AS DATE) AND transactions.state = @state AND transactions.brandId = expressBrand.brandId AND transactions.userId = users.userId
@@ -108,10 +108,10 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getTransDetail')
 	DROP PROCEDURE getTransDetail
 GO
 
+
 CREATE PROCEDURE getTransDetail(@transId int)
 AS
-SELECT transactionDetail.transId, transactionDetail.mdcID, medicine.name, transactionDetail.quantity, transactionDetail.totalPrice FROM transactionDetail JOIN medicine ON  transactionDetail.mdcID = medicine.mdcID WHERE transactionDetail.transId = @transId
-GO
+SELECT transactionDetail.transId, transactionDetail.mdcID, medicine.name, transactionDetail.quantity, medicine.price FROM transactionDetail JOIN medicine ON  transactionDetail.mdcID = medicine.mdcID WHERE transactionDetail.transId = @transId
 
 exec getTransDetail 2
 GO
@@ -123,7 +123,7 @@ GO
 
 CREATE PROCEDURE getRevenue(@from date,@to date)
 AS
-SELECT * FROM transactions WHERE CAST(transDate AS DATE) BETWEEN @from AND @to
+SELECT * FROM transactions WHERE CAST(transDate AS DATE) BETWEEN @from AND @to and state = 1
 GO
 
 -------------------------------------------------------------
@@ -294,10 +294,77 @@ IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'getMdcAboutToExpire')
 	DROP PROCEDURE getMdcAboutToExpire
 GO
 
-CREATE PROCEDURE getMdcAboutToExpire
+CREATE PROCEDURE getMdcAboutToExpire(@quantity int)
 AS
-	SELECT medicine.mdcId, medicine.name,medicine.type,medicine.categoryId,category.categoryName,medicine.dateExpire,medicine.labelerName,medicine.description,medicine.price,medicine.quantity,medicine.img FROM medicine,category WHERE medicine.categoryId = category.categoryId AND medicine.dateExpire < GETDATE() OR medicine.dateExpire > DATEADD(month,1,GETDATE()) ORDER BY medicine.dateExpire ASC
+	if @quantity = -1
+		SELECT medicine.mdcId, medicine.name,medicine.type,medicine.categoryId,category.categoryName,medicine.dateExpire,medicine.labelerName,medicine.description,medicine.price,medicine.quantity,medicine.img FROM medicine,category WHERE medicine.categoryId = category.categoryId AND medicine.dateExpire < GETDATE() OR medicine.dateExpire > DATEADD(month,1,GETDATE()) ORDER BY medicine.dateExpire ASC
+	else
+		SELECT medicine.mdcId, medicine.name,medicine.type,medicine.categoryId,category.categoryName,medicine.dateExpire,medicine.labelerName,medicine.description,medicine.price,medicine.quantity,medicine.img FROM medicine,category WHERE medicine.categoryId = category.categoryId  AND medicine.quantity < @quantity AND medicine.dateExpire < GETDATE() OR medicine.dateExpire > DATEADD(month,1,GETDATE()) ORDER BY medicine.dateExpire ASC
 GO
 
-exec getMdcAboutToExpire
+exec getMdcAboutToExpire -2
 GO
+
+-- confirm transaction
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'confirmTrans')
+	DROP PROCEDURE confirmTrans
+GO
+
+CREATE PROCEDURE confirmTrans(@transId int,@state int)
+AS
+UPDATE transactions set state = @state WHERE transId = @transId
+GO
+
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateUserInfo')
+	DROP PROCEDURE updateUserInfo
+GO
+
+CREATE PROCEDURE updateUserInfo(@email varchar(255), @name nvarchar(255), @phone char(11), @address nvarchar(255))
+AS
+UPDATE users SET name = @name, phone = @phone, address = @address WHERE email = @email
+GO
+
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateUserAddress')
+	DROP PROCEDURE updateUserAddress
+GO
+
+CREATE PROCEDURE updateUserAddress(@email varchar(255), @address nvarchar(255))
+AS
+UPDATE users SET address = @address WHERE email = @email
+
+-- Create new OTP
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'sendOTP')
+	DROP PROCEDURE sendOTP
+GO
+
+CREATE PROCEDURE sendOTP(@email varchar(255),@otp varchar(25))
+AS
+BEGIN
+	if exists (select * from users where email = @email)
+	begin
+		delete from OTP where email = @email
+		insert into OTP(email,otpCode) values (@email,@otp)
+		return 1
+	end
+	else
+		insert into OTP(email,otpCode) values(@email,@otp)
+END
+
+exec sendOTP 'admin@gmail.com', '090909'
+
+-- Check OTP
+IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'checkOTP')
+	DROP PROCEDURE checkOTP
+GO
+
+CREATE PROCEDURE checkOTP(@email varchar(255), @otp int)
+AS
+BEGIN
+	if exists (select * from otp where email = @email and otpCode = @otp)
+	begin
+		select * from otp where email = @email and otpCode = @otp
+		delete from otp where email = @email
+	end
+	else
+		select * from otp where email = @email and otpCode = @otp
+END

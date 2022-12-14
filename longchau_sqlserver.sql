@@ -132,6 +132,16 @@ CREATE TABLE certificateDetail(
 )  ;
 GO
 
+DROP TABLE OTP
+
+CREATE TABLE OTP(
+	[otpId] int NOT NULL IDENTITY(1,1)  PRIMARY KEY,
+    [email] varchar(255) NOT NULL,
+	[otpCode] varchar(25) NOT NULL,
+	[date] DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY ([email]) REFERENCES users ([email])
+)
+
 IF EXISTS (SELECT * FROM SYS.OBJECTS WHERE NAME = 'updateToalPriceTransDetail')
 	DROP TRIGGER updateToalPriceTransDetail
 GO

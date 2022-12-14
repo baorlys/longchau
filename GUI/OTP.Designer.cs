@@ -32,12 +32,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.customButton2 = new GUI.Custom.CustomButton.CustomButton();
-            this.customInput1 = new GUI.Custom.CustomInput.CustomInput();
+            this.btnVerify = new GUI.Custom.CustomButton.CustomButton();
+            this.txbOTP = new GUI.Custom.CustomInput.CustomInput();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.customButton1 = new GUI.Custom.CustomButton.CustomButton();
+            this.btnBack = new GUI.Custom.CustomButton.CustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -60,12 +60,12 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.White;
-            this.splitContainer1.Panel2.Controls.Add(this.customButton2);
-            this.splitContainer1.Panel2.Controls.Add(this.customInput1);
+            this.splitContainer1.Panel2.Controls.Add(this.btnVerify);
+            this.splitContainer1.Panel2.Controls.Add(this.txbOTP);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Panel2.Controls.Add(this.customButton1);
+            this.splitContainer1.Panel2.Controls.Add(this.btnBack);
             this.splitContainer1.Size = new System.Drawing.Size(882, 553);
             this.splitContainer1.SplitterDistance = 294;
             this.splitContainer1.TabIndex = 0;
@@ -90,44 +90,45 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "MedicalHere";
             // 
-            // customButton2
+            // btnVerify
             // 
-            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customButton2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customButton2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton2.BorderRadius = 14;
-            this.customButton2.BorderSize = 0;
-            this.customButton2.FlatAppearance.BorderSize = 0;
-            this.customButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.customButton2.ForeColor = System.Drawing.Color.White;
-            this.customButton2.Location = new System.Drawing.Point(31, 299);
-            this.customButton2.Name = "customButton2";
-            this.customButton2.Size = new System.Drawing.Size(211, 54);
-            this.customButton2.TabIndex = 15;
-            this.customButton2.Text = "Verify OTP";
-            this.customButton2.TextColor = System.Drawing.Color.White;
-            this.customButton2.UseVisualStyleBackColor = false;
+            this.btnVerify.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.btnVerify.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.btnVerify.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnVerify.BorderRadius = 14;
+            this.btnVerify.BorderSize = 0;
+            this.btnVerify.FlatAppearance.BorderSize = 0;
+            this.btnVerify.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerify.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnVerify.ForeColor = System.Drawing.Color.White;
+            this.btnVerify.Location = new System.Drawing.Point(31, 299);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(211, 54);
+            this.btnVerify.TabIndex = 15;
+            this.btnVerify.Text = "Verify OTP";
+            this.btnVerify.TextColor = System.Drawing.Color.White;
+            this.btnVerify.UseVisualStyleBackColor = false;
+            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
             // 
-            // customInput1
+            // txbOTP
             // 
-            this.customInput1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customInput1.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customInput1.BorderRadius = 8;
-            this.customInput1.BorderSize = 2;
-            this.customInput1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.customInput1.Location = new System.Drawing.Point(31, 224);
-            this.customInput1.Margin = new System.Windows.Forms.Padding(4);
-            this.customInput1.Multiline = false;
-            this.customInput1.Name = "customInput1";
-            this.customInput1.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.customInput1.PasswordChar = false;
-            this.customInput1.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customInput1.PlaceholderText = "";
-            this.customInput1.Size = new System.Drawing.Size(534, 36);
-            this.customInput1.TabIndex = 14;
-            this.customInput1.Texts = "";
-            this.customInput1.UnderlinedStyle = false;
+            this.txbOTP.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.txbOTP.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.txbOTP.BorderRadius = 8;
+            this.txbOTP.BorderSize = 2;
+            this.txbOTP.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txbOTP.Location = new System.Drawing.Point(31, 224);
+            this.txbOTP.Margin = new System.Windows.Forms.Padding(4);
+            this.txbOTP.Multiline = false;
+            this.txbOTP.Name = "txbOTP";
+            this.txbOTP.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txbOTP.PasswordChar = false;
+            this.txbOTP.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txbOTP.PlaceholderText = "";
+            this.txbOTP.Size = new System.Drawing.Size(534, 36);
+            this.txbOTP.TabIndex = 14;
+            this.txbOTP.Texts = "";
+            this.txbOTP.UnderlinedStyle = false;
             // 
             // label4
             // 
@@ -162,23 +163,24 @@
             this.label2.Text = "Password Reset";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // customButton1
+            // btnBack
             // 
-            this.customButton1.BackColor = System.Drawing.Color.White;
-            this.customButton1.BackgroundColor = System.Drawing.Color.White;
-            this.customButton1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton1.BorderRadius = 14;
-            this.customButton1.BorderSize = 1;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton1.Location = new System.Drawing.Point(31, 26);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(81, 38);
-            this.customButton1.TabIndex = 11;
-            this.customButton1.Text = "Back";
-            this.customButton1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton1.UseVisualStyleBackColor = false;
+            this.btnBack.BackColor = System.Drawing.Color.White;
+            this.btnBack.BackgroundColor = System.Drawing.Color.White;
+            this.btnBack.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnBack.BorderRadius = 14;
+            this.btnBack.BorderSize = 1;
+            this.btnBack.FlatAppearance.BorderSize = 0;
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnBack.Location = new System.Drawing.Point(31, 26);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(81, 38);
+            this.btnBack.TabIndex = 11;
+            this.btnBack.Text = "Back";
+            this.btnBack.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // OTP
             // 
@@ -207,11 +209,11 @@
         private SplitContainer splitContainer1;
         private PictureBox pictureBox1;
         private Label label1;
-        private Custom.CustomButton.CustomButton customButton2;
-        private Custom.CustomInput.CustomInput customInput1;
+        private Custom.CustomButton.CustomButton btnVerify;
+        private Custom.CustomInput.CustomInput txbOTP;
         private Label label4;
         private Label label3;
         private Label label2;
-        private Custom.CustomButton.CustomButton customButton1;
+        private Custom.CustomButton.CustomButton btnBack;
     }
 }

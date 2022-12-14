@@ -32,13 +32,13 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.customButton1 = new GUI.Custom.CustomButton.CustomButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.customInput1 = new GUI.Custom.CustomInput.CustomInput();
+            this.btnSendOTP = new GUI.Custom.CustomButton.CustomButton();
+            this.txbEmail = new GUI.Custom.CustomInput.CustomInput();
             this.label4 = new System.Windows.Forms.Label();
-            this.customButton2 = new GUI.Custom.CustomButton.CustomButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnBack = new GUI.Custom.CustomButton.CustomButton();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,12 +61,12 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.White;
-            this.splitContainer1.Panel2.Controls.Add(this.customButton2);
-            this.splitContainer1.Panel2.Controls.Add(this.customInput1);
+            this.splitContainer1.Panel2.Controls.Add(this.btnSendOTP);
+            this.splitContainer1.Panel2.Controls.Add(this.txbEmail);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Panel2.Controls.Add(this.customButton1);
+            this.splitContainer1.Panel2.Controls.Add(this.btnBack);
             this.splitContainer1.Size = new System.Drawing.Size(882, 553);
             this.splitContainer1.SplitterDistance = 294;
             this.splitContainer1.TabIndex = 0;
@@ -91,65 +91,46 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "MedicalHere";
             // 
-            // customButton1
+            // btnSendOTP
             // 
-            this.customButton1.BackColor = System.Drawing.Color.White;
-            this.customButton1.BackgroundColor = System.Drawing.Color.White;
-            this.customButton1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton1.BorderRadius = 14;
-            this.customButton1.BorderSize = 1;
-            this.customButton1.FlatAppearance.BorderSize = 0;
-            this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton1.Location = new System.Drawing.Point(23, 22);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.Size = new System.Drawing.Size(81, 38);
-            this.customButton1.TabIndex = 2;
-            this.customButton1.Text = "Back";
-            this.customButton1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton1.UseVisualStyleBackColor = false;
+            this.btnSendOTP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.btnSendOTP.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.btnSendOTP.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnSendOTP.BorderRadius = 14;
+            this.btnSendOTP.BorderSize = 0;
+            this.btnSendOTP.FlatAppearance.BorderSize = 0;
+            this.btnSendOTP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSendOTP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSendOTP.ForeColor = System.Drawing.Color.White;
+            this.btnSendOTP.Location = new System.Drawing.Point(23, 295);
+            this.btnSendOTP.Name = "btnSendOTP";
+            this.btnSendOTP.Size = new System.Drawing.Size(211, 54);
+            this.btnSendOTP.TabIndex = 9;
+            this.btnSendOTP.Text = "Send OTP";
+            this.btnSendOTP.TextColor = System.Drawing.Color.White;
+            this.btnSendOTP.UseVisualStyleBackColor = false;
+            this.btnSendOTP.Click += new System.EventHandler(this.btnSendOTP_Click);
             // 
-            // label2
+            // txbEmail
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(190, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(215, 35);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Password Reset";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.label3.Location = new System.Drawing.Point(109, 117);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(375, 20);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Enter your new password for your MedicalHere account";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // customInput1
-            // 
-            this.customInput1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customInput1.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customInput1.BorderRadius = 8;
-            this.customInput1.BorderSize = 2;
-            this.customInput1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.customInput1.Location = new System.Drawing.Point(23, 220);
-            this.customInput1.Margin = new System.Windows.Forms.Padding(4);
-            this.customInput1.Multiline = false;
-            this.customInput1.Name = "customInput1";
-            this.customInput1.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.customInput1.PasswordChar = false;
-            this.customInput1.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.customInput1.PlaceholderText = "email@gmail.com";
-            this.customInput1.Size = new System.Drawing.Size(534, 36);
-            this.customInput1.TabIndex = 8;
-            this.customInput1.Texts = "";
-            this.customInput1.UnderlinedStyle = false;
+            this.txbEmail.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.txbEmail.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
+            this.txbEmail.BorderRadius = 8;
+            this.txbEmail.BorderSize = 2;
+            this.txbEmail.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txbEmail.Location = new System.Drawing.Point(23, 220);
+            this.txbEmail.Margin = new System.Windows.Forms.Padding(4);
+            this.txbEmail.Multiline = false;
+            this.txbEmail.Name = "txbEmail";
+            this.txbEmail.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txbEmail.PasswordChar = false;
+            this.txbEmail.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txbEmail.PlaceholderText = "email@gmail.com";
+            this.txbEmail.Size = new System.Drawing.Size(534, 36);
+            this.txbEmail.TabIndex = 8;
+            this.txbEmail.Texts = "";
+            this.txbEmail.UnderlinedStyle = false;
+            this.txbEmail._TextChanged += new System.EventHandler(this.txbEmail__TextChanged);
             // 
             // label4
             // 
@@ -163,24 +144,46 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Email";
             // 
-            // customButton2
+            // label3
             // 
-            this.customButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customButton2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(206)))), ((int)(((byte)(155)))));
-            this.customButton2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.customButton2.BorderRadius = 14;
-            this.customButton2.BorderSize = 0;
-            this.customButton2.FlatAppearance.BorderSize = 0;
-            this.customButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.customButton2.ForeColor = System.Drawing.Color.White;
-            this.customButton2.Location = new System.Drawing.Point(23, 295);
-            this.customButton2.Name = "customButton2";
-            this.customButton2.Size = new System.Drawing.Size(211, 54);
-            this.customButton2.TabIndex = 9;
-            this.customButton2.Text = "Send OTP";
-            this.customButton2.TextColor = System.Drawing.Color.White;
-            this.customButton2.UseVisualStyleBackColor = false;
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.label3.Location = new System.Drawing.Point(109, 117);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(375, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Enter your new password for your MedicalHere account";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(190, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(215, 35);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Password Reset";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.White;
+            this.btnBack.BackgroundColor = System.Drawing.Color.White;
+            this.btnBack.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnBack.BorderRadius = 14;
+            this.btnBack.BorderSize = 1;
+            this.btnBack.FlatAppearance.BorderSize = 0;
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnBack.Location = new System.Drawing.Point(23, 22);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(81, 38);
+            this.btnBack.TabIndex = 2;
+            this.btnBack.Text = "Back";
+            this.btnBack.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // ForgetPass
             // 
@@ -210,12 +213,12 @@
         private SplitContainer splitContainer1;
         private PictureBox pictureBox1;
         private Label label1;
-        private Custom.CustomButton.CustomButton customButton1;
+        private Custom.CustomButton.CustomButton btnBack;
         private Label label2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Label label3;
-        private Custom.CustomInput.CustomInput customInput1;
+        private Custom.CustomInput.CustomInput txbEmail;
         private Label label4;
-        private Custom.CustomButton.CustomButton customButton2;
+        private Custom.CustomButton.CustomButton btnSendOTP;
     }
 }

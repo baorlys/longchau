@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using static System.Net.WebRequestMethods;
 
 namespace DAL
 {
@@ -80,8 +81,37 @@ namespace DAL
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { email, address });
             return true;
         }
-        
 
-        
+        public bool sendOTP(string email,string otp)
+        {
+            string query = "exec dbo.checkEmail @email";
+            DataTable result = DataProvider.Instance.ExecuteQuery(query, new object[] { email });
+            if (result.Rows.Count == 0)
+            {
+                return false;
+            }
+            string query1 = "exec dbo.sendOTP @email , @otp";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query1, new object[] { email,otp });
+            return true;
+        }
+
+        public bool checkOTP(string email, string otp)
+        {
+            string query = "exec dbo.checkOTP @email , @otp";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { email, otp });
+            if (data.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool changePassword(string email, string newPass)
+        {
+            string query = "exec dbo.changePassword @email , @password";
+            string password = md5.GetHash(newPass);
+            DataProvider.Instance.ExecuteQuery(query, new object[] { email, password });
+            return true;
+        }
     }
 }

@@ -141,7 +141,6 @@ namespace GUI
         private void Customer_Load(object sender, EventArgs e)
         {
             loadMedicine();
-
         }
 
         private void tbSearch_TextChanged(object sender, EventArgs e)

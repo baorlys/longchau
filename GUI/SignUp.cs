@@ -47,7 +47,9 @@ namespace GUI
 
         private void customButton2_Click(object sender, EventArgs e)
         {
-
+            SignIn signIn = new SignIn();
+            signIn.Show();
+            this.Hide();
         }
 
         private void label9_Click(object sender, EventArgs e)
